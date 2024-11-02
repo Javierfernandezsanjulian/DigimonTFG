@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1018651469361",
+    "project_id": "digimondttfg",
+    "storage_bucket": "digimondttfg.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018651469361:android:f8bbb010baf4f7041a9710",
+        "android_client_info": {
+          "package_name": "com.example.digimontcg"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBF14EwPoUnZLGO_tCocrahlajht7Wy8TU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
