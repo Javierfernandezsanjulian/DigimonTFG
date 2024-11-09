@@ -1,0 +1,50 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <!-- Título de Registro -->
+    <TextView
+        android:id="@+id/registerTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_title"
+    android:textSize="24sp"
+    android:textStyle="bold"
+    android:layout_marginBottom="32dp" />
+
+    <!-- Campo de Email -->
+    <EditText
+        android:id="@+id/emailEditText"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:hint="@string/email_hint"
+    android:inputType="textEmailAddress"
+    android:autofillHints="email"
+    android:maxWidth="300dp" />
+
+    <!-- Campo de Contraseña -->
+    <EditText
+        android:id="@+id/passwordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:hint="@string/password_hint"
+    android:inputType="textPassword"
+    android:autofillHints="password"
+    android:maxWidth="300dp" />
+
+    <!-- Botón de Registro -->
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/register_button_text"
+    android:backgroundTint="@color/primaryColor"
+    android:textColor="@android:color/white"
+    android:maxWidth="300dp" />
+</LinearLayout>

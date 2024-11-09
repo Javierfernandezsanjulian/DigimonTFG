@@ -12,16 +12,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DigimonTCG"
         tools:targetApi="34">
+
+        <!-- Declaración de MainActivity como actividad principal -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.DigimonTCG">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Declaración de RegisterActivity -->
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="true"
+            android:theme="@style/Theme.DigimonTCG" />
+
     </application>
 
 </manifest>
