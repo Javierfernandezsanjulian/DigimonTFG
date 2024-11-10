@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         val emailEditText = findViewById<EditText>(R.id.emailEditText)
         val passwordEditText = findViewById<EditText>(R.id.passwordEditText)
         val loginButton = findViewById<Button>(R.id.loginButton)
-        val registerTextView = findViewById<TextView>(R.id.registerTextView) // Texto para navegar al registro
+        val registerTextView = findViewById<TextView>(R.id.registerTextView)
 
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString().trim()
@@ -48,7 +48,13 @@ class MainActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
-                    // Aquí puedes navegar a la pantalla principal de tu app
+
+                    // Navegar a DashboardActivity después de inicio de sesión exitoso
+                    val intent = Intent(this, DashboardActivity::class.java)
+                    startActivity(intent)
+
+                    // Finaliza MainActivity para que no esté en la pila de retroceso
+                    finish()
                 } else {
                     Toast.makeText(this, "Error en la autenticación: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }

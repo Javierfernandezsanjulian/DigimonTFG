@@ -1,0 +1,45 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <!-- Título del Tablero -->
+    <TextView
+        android:id="@+id/dashboardTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dashboard_title"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="32dp" />
+
+    <!-- Botón para Colección Física -->
+    <Button
+        android:id="@+id/physicalCollectionButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/physical_collection"
+        android:layout_marginBottom="16dp"
+        android:drawableLeft="@drawable/ic_physical_collection" />
+
+    <!-- Botón para Colección Digital -->
+    <Button
+        android:id="@+id/digitalCollectionButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/digital_collection"
+        android:layout_marginBottom="16dp"
+        android:drawableLeft="@drawable/ic_digital_collection" />
+
+    <!-- Botón para Crear Mazos -->
+    <Button
+        android:id="@+id/deckBuilderButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/deck_builder"
+        android:drawableLeft="@drawable/ic_deck_builder" />
+
+</LinearLayout>
