@@ -21,6 +21,7 @@ class RegisterActivity : AppCompatActivity() {
         val emailEditText = findViewById<EditText>(R.id.emailEditText)
         val passwordEditText = findViewById<EditText>(R.id.passwordEditText)
         val registerButton = findViewById<Button>(R.id.registerButton)
+        val registerBackButton = findViewById<Button>(R.id.registerBackButton)
 
         registerButton.setOnClickListener {
             val email = emailEditText.text.toString().trim()
@@ -32,6 +33,11 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.makeText(this, "Por favor, ingresa el email y la contraseña", Toast.LENGTH_SHORT).show()
             }
         }
+
+        registerBackButton.setOnClickListener {
+            finish()
+        }
+
     }
 
     private fun registerUser(email: String, password: String) {

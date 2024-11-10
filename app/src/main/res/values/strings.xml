@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name" translatable="false">DigimonTCG</string>
-    <string name="email_hint" translatable="false">Correo electrónico</string>
-    <string name="password_hint" translatable="false">Contraseña</string>
-    <string name="login_button_text" translatable="false">Iniciar sesión</string>
-    <string name="register_button_text" translatable="false">Registrarse</string>
-    <string name="register_title" translatable="false">Regístrate</string>
+    <string name="email_hint" translatable="false">Email</string>
+    <string name="password_hint" translatable="false">Password</string>
+    <string name="login_button_text" translatable="false">Log in</string>
+    <string name="login_button_title_text" translatable="false">Login Page</string>
+    <string name="register_button_text" translatable="false">Register</string>
+    <string name="register_back_button_text" translatable="false">Back</string>
+    <string name="register_title" translatable="false">Register Page</string>
 </resources>

@@ -6,16 +6,25 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:gravity="center"
+    android:background="@drawable/background"
     tools:ignore="ExtraText">
+
 
     <!-- Título de la App -->
     <TextView
         android:id="@+id/appTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textSize="24sp"
+        android:paddingVertical="5dp"
+        android:textAlignment="center"
+        android:text="@string/login_button_title_text"
+        android:textSize="32sp"
+        android:paddingHorizontal="18dp"
         android:textStyle="bold"
+        android:textColor="@color/primaryColor"
+        android:textAllCaps="true"
+        android:background="@drawable/round_button"
+        android:layout_marginTop="130dp"
         android:layout_marginBottom="32dp" />
 
     <!-- Campo de Email -->
@@ -24,10 +33,15 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginBottom="16dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
         android:hint="@string/email_hint"
+        android:textColorHint="@color/white"
         android:inputType="textEmailAddress"
         android:autofillHints="email"
         android:backgroundTint="@color/primaryColor"
+        android:textColor="@color/white"
+        android:background="@drawable/round_button"
         android:maxWidth="300dp" />
 
     <!-- Campo de Contraseña -->
@@ -35,11 +49,16 @@
         android:id="@+id/passwordEditText"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="64dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
         android:hint="@string/password_hint"
+        android:textColorHint="@color/white"
         android:inputType="textPassword"
         android:autofillHints="password"
         android:backgroundTint="@color/primaryColor"
+        android:textColor="@color/white"
+        android:background="@drawable/round_button"
         android:maxWidth="300dp" />
 
     <!-- Botón de Login -->
@@ -50,18 +69,20 @@
         android:text="@string/login_button_text"
         android:backgroundTint="@color/primaryColor"
         android:textColor="@android:color/white"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/round_button"
         android:maxWidth="300dp" />
 
     <Button
         android:id="@+id/registerTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-    android:gravity="center"
-    android:text="@string/register_button_text"
-    android:textColor="@color/primaryColor"
-    android:textStyle="bold"
-    android:layout_marginTop="16dp"
-    android:clickable="true"
-    android:focusable="true" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/round_button"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:text="@string/register_button_text"
+        android:textColor="@color/primaryColor"
+        android:textStyle="bold" />
 </LinearLayout>
