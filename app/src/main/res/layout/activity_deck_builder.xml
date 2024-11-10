@@ -1,0 +1,41 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <!-- Título de Creación de Mazos -->
+    <TextView
+        android:id="@+id/deckBuilderTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Creador de Mazos"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Lista de Cartas Disponibles -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selecciona cartas para añadir al mazo"
+        android:layout_marginBottom="16dp"
+        android:gravity="center" />
+
+    <!-- Lista de Cartas (Placeholder) -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aquí se mostrará una lista de cartas disponibles"
+        android:gravity="center" />
+
+    <!-- Botón para Confirmar Creación de Mazo -->
+    <Button
+        android:id="@+id/confirmDeckButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirmar Mazo"
+        android:layout_marginTop="16dp" />
+</LinearLayout>
