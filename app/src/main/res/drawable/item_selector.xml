@@ -3,10 +3,10 @@
 
     <item
         android:state_selected="true"
-        android:color = "@color/primaryColorLight"/>
+        android:color = "@color/primaryColor"/>
 
     <item
         android:state_selected="false"
-        android:color = "@color/primaryColor"/>
+        android:color = "@color/primaryColorDark"/>
 
 </selector>
