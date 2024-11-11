@@ -31,8 +31,6 @@
             android:exported="true"
             android:theme="@style/Theme.DigimonTCG" />
         <activity android:name=".DashboardActivity" />
-        <activity android:name=".PhysicalCollectionActivity" />
-        <activity android:name=".DigitalCollectionActivity" />
         <activity android:name=".DeckBuilderActivity" />
     </application>
 
