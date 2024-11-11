@@ -8,10 +8,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var auth: FirebaseAuth
+    internal companion object {
+        lateinit var auth: FirebaseAuth
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +42,18 @@ class MainActivity : AppCompatActivity() {
         // Navegar a la pantalla de registro
         registerTextView.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        val currentUser: FirebaseUser? = auth.currentUser
+        if(currentUser!=null){
+            // Navegar a DashboardActivity
+            Toast.makeText(this, "Hola de nuevo " + (currentUser.email?.split("@")?.get(0) ?: "UnknownUser") + "!", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, DashboardActivity::class.java)
             startActivity(intent)
         }
     }

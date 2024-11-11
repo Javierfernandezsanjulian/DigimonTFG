@@ -16,7 +16,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register) // Asegúrate de que el diseño sea el correcto
 
         // Inicializar Firebase Auth
-        auth = FirebaseAuth.getInstance()
+        auth = MainActivity.auth
 
         val emailEditText = findViewById<EditText>(R.id.emailEditText)
         val passwordEditText = findViewById<EditText>(R.id.passwordEditText)

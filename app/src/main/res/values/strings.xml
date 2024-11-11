@@ -9,8 +9,8 @@
     <string name="register_title" translatable="false">Register Page</string>
 
     <!-- Strings para la Pantalla Principal (Tablero de Colección) -->
-    <string name="dashboard_title" translatable="false">Tablero de Colección</string>
-    <string name="physical_collection" translatable="false">Colección Física</string>
-    <string name="digital_collection" translatable="false">Colección Digital</string>
-    <string name="deck_builder" translatable="false">Creador de Mazos</string>
+    <string name="dashboard_title" translatable="false">Main Board</string>
+    <string name="physical_collection" translatable="false">Physical Collection</string>
+    <string name="digital_collection" translatable="false">Digital Collection</string>
+    <string name="deck_builder" translatable="false">Deck Builder</string>
 </resources>

@@ -1,0 +1,71 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+  <!-- Título de Creación de Mazos -->
+  <TextView
+      android:id="@+id/collectionTitle"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Collección de Cartas"
+      android:textAlignment="center"
+      android:textSize="24sp"
+      android:textStyle="bold"
+      android:layout_marginBottom="24dp"
+      android:layout_marginTop="128dp"
+      android:layout_alignParentTop="true"/>
+
+  <!-- Lista de Cartas Disponibles -->
+  <TextView
+      android:id="@+id/collectionAvailableCards"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Haz clic en una carta para ver su información"
+      android:textAlignment="center"
+      android:layout_marginBottom="16dp"
+      android:gravity="center"
+      android:layout_below="@id/collectionTitle"/>
+
+  <!-- Lista de Cartas (Placeholder) -->
+  <TextView
+      android:id="@+id/collectionPlaceholderText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Aquí se mostrará una lista de cartas disponibles"
+      android:textAlignment="center"
+      android:gravity="center"
+      android:layout_below="@id/collectionAvailableCards"/>
+
+  <!-- Botón para Confirmar Creación de Mazo -->
+  <Button
+      android:id="@+id/collectionSwitchButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Cambiar a digital"
+      android:layout_marginTop="16dp"
+      android:layout_alignParentRight="true"
+      android:background="@drawable/bottom_background"
+      android:paddingHorizontal="10dp"
+      android:layout_above="@id/bottomNavigationView"/>
+
+  <com.google.android.material.bottomnavigation.BottomNavigationView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom"
+      android:id="@+id/bottomNavigationView"
+      android:layout_alignParentBottom="true"
+      android:background="@drawable/bottom_background"
+      android:layout_marginBottom="20dp"
+      android:layout_marginTop="20dp"
+      android:elevation="2dp"
+      app:menu="@menu/bottom_menu"
+      app:itemIconSize="30dp"
+      app:itemIconTint="@drawable/item_selector"
+      app:itemRippleColor="@android:color/transparent"
+      app:labelVisibilityMode="unlabeled"
+      android:paddingHorizontal="10dp"/>
+</RelativeLayout>
