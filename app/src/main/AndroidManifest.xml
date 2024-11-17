@@ -32,6 +32,7 @@
             android:theme="@style/Theme.DigimonTCG" />
         <activity android:name=".DashboardActivity" />
         <activity android:name=".DeckBuilderActivity" />
+        <activity android:name=".CardsActivity" />
     </application>
 
 </manifest>

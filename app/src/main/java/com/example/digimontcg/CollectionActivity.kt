@@ -4,10 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -31,60 +28,64 @@ class CollectionActivity : AppCompatActivity() {
     }
 
     private fun initComponents() {
+        // Configurar barra de navegación
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
-        collectionSwitchButton = findViewById(R.id.collectionSwitchButton)
 
+        // Configurar RecyclerView
         recyclerView = findViewById(R.id.collectionCardHolder)
-        gridLayoutManager = GridLayoutManager(this, 3)
-        recyclerView.layoutManager = gridLayoutManager
-        val itemList = listOf("BO-01", "BO-02", "BO-03", "BO-04", "BO-05", "BO-06")
-        val adapter = RecyclerViewAdapter(itemList)
-        recyclerView.adapter = adapter
+        recyclerView.layoutManager = GridLayoutManager(this, 2) // Mostrar 2 columnas de ediciones
+        collectionSwitchButton = findViewById(R.id.collectionSwitchButton)
+        // Obtener lista de ediciones
+        val editions = getEditions()
+
+        // Configurar adaptador para mostrar ediciones
+        recyclerView.adapter = EditionAdapter(editions) { edition ->
+            // Al hacer clic en una edición, abre la actividad CardsActivity
+            val intent = Intent(this, CardsActivity::class.java)
+            intent.putExtra("editionName", edition.name)
+            startActivity(intent)
+        }
     }
 
     private fun initListeners() {
-        // bottomNavegationView Listener
-        bottomNavigationView.setOnItemSelectedListener { item: MenuItem ->
+        // Configurar el listener para el botón
+        collectionSwitchButton.setOnClickListener {
+            if (isDigital) {
+                collectionSwitchButton.text = "Cambiar a Física"
+            } else {
+                collectionSwitchButton.text = "Cambiar a Digital"
+            }
+            isDigital = !isDigital
+        }
+
+        // Listener para la barra de navegación inferior
+        bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.bottom_home -> {
-                    startActivity(
-                        Intent(
-                            applicationContext,
-                            DashboardActivity::class.java
-                        )
-                    )
+                    startActivity(Intent(applicationContext, DashboardActivity::class.java))
                     finish()
                     return@setOnItemSelectedListener true
                 }
-
                 R.id.bottom_collection -> return@setOnItemSelectedListener true
-
                 R.id.bottom_deck -> {
-                    startActivity(
-                        Intent(
-                            applicationContext,
-                            DeckBuilderActivity::class.java
-                        )
-                    )
+                    startActivity(Intent(applicationContext, DeckBuilderActivity::class.java))
                     finish()
                     return@setOnItemSelectedListener true
                 }
-
                 R.id.bottom_profile -> {
+                    // Aquí puedes abrir otra actividad de perfil
                     return@setOnItemSelectedListener true
                 }
             }
             false
         }
+    }
 
-        // collectionSwitchButton Listener
-        collectionSwitchButton.setOnClickListener {
 
-            if(isDigital)
-                collectionSwitchButton.setText("Cambiar a Física")
-            else
-                collectionSwitchButton.setText("Cambiar a Digital")
-            isDigital = !isDigital
-        }
+    // Función para obtener la lista de ediciones
+    private fun getEditions(): List<Edition> {
+        return listOf(
+            Edition("BT1 - New Adventure", 136, R.drawable.bt1_image),
+        )
     }
 }

@@ -1,11 +1,9 @@
-
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
     id("org.jetbrains.kotlin.plugin.compose") version "2.0.0"
-
+    id("kotlin-kapt") // Agregado para Glide
 }
 
 android {
@@ -72,6 +70,10 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+
+    // Glide
+    implementation ("com.github.bumptech.glide:glide:4.15.1")
+    kapt ("com.github.bumptech.glide:compiler:4.15.1")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

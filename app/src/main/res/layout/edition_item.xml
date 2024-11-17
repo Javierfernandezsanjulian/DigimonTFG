@@ -1,0 +1,34 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:gravity="center">
+
+    <!-- Imagen de la edición -->
+    <ImageView
+        android:id="@+id/editionImage"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop" />
+
+    <!-- Nombre de la edición -->
+    <TextView
+        android:id="@+id/editionTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edition Name"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingTop="8dp" />
+
+    <!-- Cantidad de cartas -->
+    <TextView
+        android:id="@+id/editionCardCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Card Count"
+        android:gravity="center"
+        android:paddingTop="4dp" />
+</LinearLayout>
