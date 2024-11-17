@@ -8,10 +8,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class CollectionActivity : AppCompatActivity() {
 
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var gridLayoutManager: GridLayoutManager
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var collectionSwitchButton: Button
     private var isDigital: Boolean = true
@@ -29,6 +33,13 @@ class CollectionActivity : AppCompatActivity() {
     private fun initComponents() {
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
         collectionSwitchButton = findViewById(R.id.collectionSwitchButton)
+
+        recyclerView = findViewById(R.id.collectionCardHolder)
+        gridLayoutManager = GridLayoutManager(this, 3)
+        recyclerView.layoutManager = gridLayoutManager
+        val itemList = listOf("BO-01", "BO-02", "BO-03", "BO-04", "BO-05", "BO-06")
+        val adapter = RecyclerViewAdapter(itemList)
+        recyclerView.adapter = adapter
     }
 
     private fun initListeners() {

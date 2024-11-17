@@ -11,34 +11,21 @@
       android:id="@+id/collectionTitle"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="Collección de Cartas"
+      android:text="Colección de Cartas"
       android:textAlignment="center"
       android:textSize="24sp"
       android:textStyle="bold"
       android:layout_marginBottom="24dp"
-      android:layout_marginTop="128dp"
+      android:layout_marginTop="32dp"
       android:layout_alignParentTop="true"/>
 
-  <!-- Lista de Cartas Disponibles -->
-  <TextView
-      android:id="@+id/collectionAvailableCards"
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/collectionCardHolder"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="Haz clic en una carta para ver su información"
-      android:textAlignment="center"
-      android:layout_marginBottom="16dp"
-      android:gravity="center"
+      android:layout_above="@id/collectionSwitchButton"
+      android:layout_centerHorizontal="true"
       android:layout_below="@id/collectionTitle"/>
-
-  <!-- Lista de Cartas (Placeholder) -->
-  <TextView
-      android:id="@+id/collectionPlaceholderText"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="Aquí se mostrará una lista de cartas disponibles"
-      android:textAlignment="center"
-      android:gravity="center"
-      android:layout_below="@id/collectionAvailableCards"/>
 
   <!-- Botón para Confirmar Creación de Mazo -->
   <Button
@@ -46,8 +33,8 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="Cambiar a digital"
-      android:layout_marginTop="16dp"
-      android:layout_alignParentRight="true"
+      android:layout_marginTop="24dp"
+      android:layout_alignParentEnd="true"
       android:background="@drawable/bottom_background"
       android:paddingHorizontal="10dp"
       android:layout_above="@id/bottomNavigationView"/>
