@@ -36,7 +36,8 @@ class CardsActivity : AppCompatActivity() {
         // Listar los archivos en la carpeta assets/cards
         val files = assetManager.list("cards") ?: arrayOf()
         for (file in files) {
-            if (file.startsWith(editionPrefix)) {
+            // Asegurarse de que el archivo pertenece estrictamente a la edición
+            if (file.startsWith("$editionPrefix-")) {
                 val cardnumber = file.substringBeforeLast(".jpg") // Ejemplo: "BT1-001"
                 cardList.add(Card(name = cardnumber, cardnumber = cardnumber))
             }

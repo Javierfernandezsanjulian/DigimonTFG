@@ -62,6 +62,8 @@ dependencies {
 
     // Firebase Authentication
     implementation(libs.firebase.auth)
+    implementation("com.google.firebase:firebase-database:20.2.2")
+
 
     // Dependencias adicionales
     implementation(libs.androidx.core.ktx)
@@ -73,6 +75,7 @@ dependencies {
 
     // Glide
     implementation ("com.github.bumptech.glide:glide:4.15.1")
+    implementation(libs.firebase.firestore.ktx)
     kapt ("com.github.bumptech.glide:compiler:4.15.1")
 
     testImplementation(libs.junit)
