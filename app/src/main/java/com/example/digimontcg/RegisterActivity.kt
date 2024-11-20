@@ -70,18 +70,31 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun createUserInFirestore(userId: String, email: String) {
         val userMap = mapOf(
-            "email" to email,
-            "collection" to emptyList<String>() // Inicializar colección vacía
+            "email" to email
         )
 
-        firestore.collection("users").document(userId).set(userMap)
+        // Crea la colección del usuario con el UID como nombre
+        val userCollectionRef = firestore.collection("users").document(userId)
+        userCollectionRef.set(userMap)
             .addOnSuccessListener {
-                Toast.makeText(
-                    this,
-                    "Usuario registrado exitosamente en Firestore",
-                    Toast.LENGTH_SHORT
-                ).show()
-                finish() // Vuelve a la actividad principal
+                // Crea la colección interna para el usuario
+                val userCollection = userCollectionRef.collection(userId) // Usa el UID como nombre
+                userCollection.add(mapOf("nombre" to "Nombre del usuario", "edad" to 25))
+                    .addOnSuccessListener { documentReference ->
+                        Toast.makeText(
+                            this,
+                            "Usuario registrado exitosamente en Firestore",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        finish() // Vuelve a la actividad principal
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(
+                            this,
+                            "Error al registrar usuario en Firestore: ${e.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
             }
             .addOnFailureListener { e ->
                 Toast.makeText(
