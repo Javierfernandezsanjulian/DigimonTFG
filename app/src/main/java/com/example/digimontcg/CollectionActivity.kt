@@ -2,7 +2,6 @@ package com.example.digimontcg
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -34,7 +33,10 @@ class CollectionActivity : AppCompatActivity() {
         // Configurar RecyclerView
         recyclerView = findViewById(R.id.collectionCardHolder)
         recyclerView.layoutManager = GridLayoutManager(this, 2) // Mostrar 2 columnas de ediciones
+
+        // Configurar el botón de cambio de colección
         collectionSwitchButton = findViewById(R.id.collectionSwitchButton)
+
         // Obtener lista de ediciones
         val editions = getEditions()
 
@@ -73,14 +75,14 @@ class CollectionActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
                 R.id.bottom_profile -> {
-                    // Aquí puedes abrir otra actividad de perfil
+                    // Aquí puedes abrir otra actividad de perfil o ajustes
+                    startActivity(Intent(applicationContext, SettingsActivity::class.java))
                     return@setOnItemSelectedListener true
                 }
             }
             false
         }
     }
-
 
     // Función para obtener la lista de ediciones
     private fun getEditions(): List<Edition> {

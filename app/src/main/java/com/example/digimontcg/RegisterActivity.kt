@@ -15,7 +15,7 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register) // Asegúrate de que el diseño sea el correcto
+        setContentView(R.layout.activity_register)
 
         // Inicializar Firebase Auth y Firestore
         auth = FirebaseAuth.getInstance()
@@ -70,31 +70,19 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun createUserInFirestore(userId: String, email: String) {
         val userMap = mapOf(
-            "email" to email
+            "email" to email,
+            "collection" to emptyList<String>() // Inicializar con una colección vacía
         )
 
-        // Crea la colección del usuario con el UID como nombre
-        val userCollectionRef = firestore.collection("users").document(userId)
-        userCollectionRef.set(userMap)
+        // Crear el documento del usuario en Firestore
+        firestore.collection("users").document(userId).set(userMap)
             .addOnSuccessListener {
-                // Crea la colección interna para el usuario
-                val userCollection = userCollectionRef.collection(userId) // Usa el UID como nombre
-                userCollection.add(mapOf("nombre" to "Nombre del usuario", "edad" to 25))
-                    .addOnSuccessListener { documentReference ->
-                        Toast.makeText(
-                            this,
-                            "Usuario registrado exitosamente en Firestore",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        finish() // Vuelve a la actividad principal
-                    }
-                    .addOnFailureListener { e ->
-                        Toast.makeText(
-                            this,
-                            "Error al registrar usuario en Firestore: ${e.message}",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                Toast.makeText(
+                    this,
+                    "Usuario registrado exitosamente en Firestore",
+                    Toast.LENGTH_SHORT
+                ).show()
+                finish() // Vuelve a la actividad principal
             }
             .addOnFailureListener { e ->
                 Toast.makeText(

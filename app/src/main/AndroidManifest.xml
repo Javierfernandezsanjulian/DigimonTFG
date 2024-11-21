@@ -33,6 +33,7 @@
         <activity android:name=".DashboardActivity" />
         <activity android:name=".DeckBuilderActivity" />
         <activity android:name=".CardsActivity" />
+        <activity android:name=".SettingsActivity" />
     </application>
 
 </manifest>
