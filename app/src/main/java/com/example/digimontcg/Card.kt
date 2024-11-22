@@ -1,7 +1,12 @@
 package com.example.digimontcg
 
 data class Card(
-    val name: String,        // Nombre de la carta (si lo necesitas)
-    val cardnumber: String,   // Número de la carta (ejemplo: BT1-001)
-    var quantity: Int = 0    // Cantidad en la colección del usuario
+    val card_id: String = "",
+    val color1: String = "",
+    val color2: String = "",
+    val description: String = "",
+    val name: String = "",
+    val pack: String = "",
+    val rarity: String = "",
+    val type: String = ""
 )

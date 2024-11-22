@@ -87,7 +87,7 @@ class CollectionActivity : AppCompatActivity() {
     // Función para obtener la lista de ediciones
     private fun getEditions(): List<Edition> {
         return listOf(
-            Edition("BT1 - New Adventure", 136, R.drawable.bt1_image),
+            Edition("BT1", 136, R.drawable.bt1_image),
         )
     }
 }

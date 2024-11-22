@@ -3,23 +3,49 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
-    android:gravity="center">
+    android:padding="8dp">
 
-    <!-- Imagen de la carta -->
     <ImageView
         android:id="@+id/cardImage"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:scaleType="centerCrop" />
 
-    <!-- Nombre de la carta -->
     <TextView
         android:id="@+id/cardName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:text="Card Name"
-        android:textStyle="bold"
-        android:gravity="center"
+        android:textSize="14sp"
         android:paddingTop="8dp" />
+
+    <TextView
+        android:id="@+id/cardQuantityText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="x0"
+        android:textSize="12sp"
+        android:paddingTop="4dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="8dp">
+
+        <Button
+            android:id="@+id/removeCardButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:layout_marginEnd="8dp" />
+        <Button
+            android:id="@+id/addCardButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+" />
+    </LinearLayout>
 </LinearLayout>
