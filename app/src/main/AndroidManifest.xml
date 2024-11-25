@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" >
 
+    <!-- Permisos necesarios -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -32,6 +36,8 @@
             android:theme="@style/Theme.DigimonTCG" />
         <activity android:name=".DashboardActivity" />
         <activity android:name=".DeckBuilderActivity" />
+        <activity android:name=".CardsActivity" />
+        <activity android:name=".SettingsActivity" />
     </application>
 
 </manifest>

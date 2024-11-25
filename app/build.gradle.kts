@@ -1,11 +1,9 @@
-
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
     id("org.jetbrains.kotlin.plugin.compose") version "2.0.0"
-
+    id("kotlin-kapt") // Necesario para Glide
 }
 
 android {
@@ -45,7 +43,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.12" // Ajusta esta versión si es necesario
+        kotlinCompilerExtensionVersion = "1.5.12" // Ajusta esta versión según sea necesario
     }
     packaging {
         resources {
@@ -55,29 +53,39 @@ android {
 }
 
 dependencies {
-    // Dependencias de Jetpack Compose
-    implementation(platform(libs.androidx.compose.bom))
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.material3:material3")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation(libs.androidx.activity.compose)
+    // Firebase BOM: Alinea versiones de Firebase automáticamente
+    implementation (platform("com.google.firebase:firebase-bom:33.6.0"))
 
-    // Firebase Authentication
-    implementation(libs.firebase.auth)
+    // Firebase servicios específicos
+    implementation ("com.google.firebase:firebase-auth")
+    implementation ("com.google.firebase:firebase-firestore")
+    implementation ("com.google.firebase:firebase-database")
 
-    // Dependencias adicionales
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
+    // Glide para carga de imágenes
+    implementation ("com.github.bumptech.glide:glide:4.15.1")
+    kapt ("com.github.bumptech.glide:compiler:4.15.1")
 
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    // Jetpack Compose y dependencias adicionales
+    implementation (platform(libs.androidx.compose.bom))
+    implementation ("androidx.compose.ui:ui")
+    implementation ("androidx.compose.material3:material3")
+    implementation ("androidx.compose.ui:ui-tooling-preview")
+    implementation (libs.androidx.activity.compose)
+
+            // Dependencias adicionales de Android
+            implementation (libs.androidx.core.ktx)
+            implementation (libs.androidx.lifecycle.runtime.ktx)
+            implementation (libs.androidx.appcompat)
+            implementation (libs.material)
+            implementation (libs.androidx.activity)
+            implementation (libs.androidx.constraintlayout)
+
+            // Dependencias de prueba
+            testImplementation (libs.junit)
+            androidTestImplementation (libs.androidx.junit)
+            androidTestImplementation (libs.androidx.espresso.core)
+            debugImplementation ("androidx.compose.ui:ui-tooling")
+    debugImplementation ("androidx.compose.ui:ui-test-manifest")
 }
 
 // Aplica Google Services al final
