@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import kotlin.random.Random
 
 class OpenPacksActivity : AppCompatActivity() {
@@ -32,6 +33,7 @@ class OpenPacksActivity : AppCompatActivity() {
         // Configurar el botón para abrir sobres
         openPackButton.setOnClickListener { openPack() }
     }
+
     private fun openPack() {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         if (userId == null) {
@@ -60,11 +62,13 @@ class OpenPacksActivity : AppCompatActivity() {
                         onCardRemove = { }
                     )
                 } else {
-                    Toast.makeText(this, "No hay cartas disponibles en BT1", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "No hay cartas disponibles en BT1", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
             .addOnFailureListener { e ->
-                Toast.makeText(this, "Error al cargar cartas: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Error al cargar cartas: ${e.message}", Toast.LENGTH_SHORT)
+                    .show()
             }
     }
 
@@ -78,14 +82,24 @@ class OpenPacksActivity : AppCompatActivity() {
         return result
     }
 
-    private fun saveCardsToDigitalCollection(userId: String, cards: List<Card>) {
-        val userCollectionRef = firestore.collection("users").document(userId).collection("digital_collection")
-        cards.forEach { card ->
-            val cardRef = userCollectionRef.document(card.card_id)
-            cardRef.get().addOnSuccessListener { document ->
-                val currentQuantity = document.getLong("quantity")?.toInt() ?: 0
-                cardRef.set(mapOf("quantity" to currentQuantity + 1))
-            }
+    private fun saveCardsToDigitalCollection(userId: String, newCards: List<Card>) {
+        val digitalCollectionRef = firestore
+            .collection("users")
+            .document(userId)
+            .collection("digital")
+
+        newCards.forEach { card ->
+            val cardRef = digitalCollectionRef.document(card.card_id)
+            cardRef.get()
+                .addOnSuccessListener { document ->
+                    val currentQuantity = document.getLong("quantity")?.toInt() ?: 0
+                    // Actualizar la cantidad
+                    cardRef.set(mapOf("quantity" to currentQuantity + 1), SetOptions.merge())
+                }
+                .addOnFailureListener {
+                    // Si hay un error al obtener el documento, intentamos crearlo
+                    cardRef.set(mapOf("quantity" to 1))
+                }
         }
     }
 }
