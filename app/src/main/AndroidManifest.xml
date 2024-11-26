@@ -38,6 +38,10 @@
         <activity android:name=".DeckBuilderActivity" />
         <activity android:name=".CardsActivity" />
         <activity android:name=".SettingsActivity" />
+        <activity android:name=".OpenPacksActivity" />
+        <activity
+            android:name=".DigitalCollectionActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

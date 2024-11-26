@@ -71,6 +71,7 @@ dependencies {
     implementation ("androidx.compose.ui:ui")
     implementation ("androidx.compose.material3:material3")
     implementation ("androidx.compose.ui:ui-tooling-preview")
+    implementation ("androidx.recyclerview:recyclerview:1.3.1")
     implementation (libs.androidx.activity.compose)
 
             // Dependencias adicionales de Android
@@ -81,7 +82,7 @@ dependencies {
             implementation (libs.androidx.activity)
             implementation (libs.androidx.constraintlayout)
 
-            // Dependencias de prueba
+    // Dependencias de prueba
             testImplementation (libs.junit)
             androidTestImplementation (libs.androidx.junit)
             androidTestImplementation (libs.androidx.espresso.core)
