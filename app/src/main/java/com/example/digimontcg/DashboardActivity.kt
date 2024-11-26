@@ -3,12 +3,14 @@ package com.example.digimontcg
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class DashboardActivity : AppCompatActivity() {
 
     private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var openPacksButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,10 +24,11 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun initComponents() {
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
+        openPacksButton = findViewById(R.id.openPacksButton) // Botón para abrir sobres
     }
 
     private fun initListeners() {
-        // bottomNavigationView Listener
+        // Listener para BottomNavigationView
         bottomNavigationView.setOnItemSelectedListener { item: MenuItem ->
             when (item.itemId) {
                 R.id.bottom_home -> return@setOnItemSelectedListener true
@@ -59,6 +62,11 @@ class DashboardActivity : AppCompatActivity() {
                 }
             }
             false
+        }
+
+        // Listener para abrir sobres
+        openPacksButton.setOnClickListener {
+            startActivity(Intent(this, OpenPacksActivity::class.java))
         }
     }
 }

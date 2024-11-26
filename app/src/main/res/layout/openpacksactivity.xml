@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/openPackTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Abrir Sobres"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
+    <!-- Botón de Abrir Sobre -->
+    <Button
+        android:id="@+id/openPackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Abrir Sobre"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/openPackTitle"
+        android:layout_marginTop="24dp" />
+
+    <!-- RecyclerView para mostrar las cartas obtenidas -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/packCardsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/openPackButton"
+        android:layout_marginTop="16dp" />
+
+</RelativeLayout>
