@@ -63,6 +63,7 @@ dependencies {
 
     // Glide para carga de imágenes
     implementation ("com.github.bumptech.glide:glide:4.15.1")
+    implementation(libs.androidx.recyclerview)
     kapt ("com.github.bumptech.glide:compiler:4.15.1")
 
     // Jetpack Compose y dependencias adicionales
