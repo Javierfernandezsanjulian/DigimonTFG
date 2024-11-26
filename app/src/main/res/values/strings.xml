@@ -13,4 +13,5 @@
     <string name="physical_collection" translatable="false">Physical Collection</string>
     <string name="digital_collection" translatable="false">Digital Collection</string>
     <string name="deck_builder" translatable="false">Deck Builder</string>
+    <string name="card_image">Imagen de la carta</string>
 </resources>

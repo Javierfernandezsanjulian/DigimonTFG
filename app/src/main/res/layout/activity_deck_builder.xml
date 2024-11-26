@@ -1,69 +1,89 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center">
+    android:padding="16dp">
 
-    <!-- Título de Creación de Mazos -->
+    <!-- Título -->
     <TextView
         android:id="@+id/deckBuilderTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Creador de Mazos"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="24dp"
-        android:layout_marginTop="128dp"
-        android:layout_alignParentTop="true"/>
-
-    <!-- Lista de Cartas Disponibles -->
-    <TextView
-        android:id="@+id/deckBuilderAvailableCards"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Selecciona cartas para añadir al mazo"
-        android:textAlignment="center"
-        android:layout_marginBottom="16dp"
-        android:gravity="center"
-        android:layout_below="@id/deckBuilderTitle"/>
-
-    <!-- Lista de Cartas (Placeholder) -->
-    <TextView
-        android:id="@+id/deckBuilderPlaceholderText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Aquí se mostrará una lista de cartas disponibles"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:layout_below="@id/deckBuilderAvailableCards"/>
-
-    <!-- Botón para Confirmar Creación de Mazo -->
-    <Button
-        android:id="@+id/confirmDeckButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Confirmar Mazo"
-        android:layout_marginTop="16dp"
-        android:layout_centerInParent="true"
-        android:layout_below="@id/deckBuilderPlaceholderText"/>
+        android:text="Creador de Mazos"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <!-- Barra de búsqueda -->
+    <EditText
+        android:id="@+id/filterEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:hint="Buscar cartas"
+        android:layout_below="@id/deckBuilderTitle"
+        android:padding="15dp" />
+
+    <!-- RecyclerView para cartas disponibles -->
+    <androidx.recyclerview.widget.RecyclerView        android:id="@+id/availableCardsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_below="@id/filterEditText"
+        android:layout_marginTop="8dp" />
+
+    <!-- Título para el mazo -->
+    <TextView
+        android:id="@+id/deckTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tu Mazo"
+        android:textSize="18sp"
+        android:layout_below="@id/availableCardsRecyclerView"
+        android:layout_marginTop="16dp" />
+
+    <!-- RecyclerView para el mazo -->
+    <androidx.recyclerview.widget.RecyclerView        android:id="@+id/deckRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/deckTitle"
+        android:layout_marginTop="8dp" />
+
+    <!-- Botones -->
+    <LinearLayout
+        android:id="@+id/buttonContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/deckRecyclerView"
+        android:layout_marginTop="16dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/saveDeckButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Guardar Mazo"
+            android:layout_marginEnd="16dp" />
+
+        <Button
+            android:id="@+id/clearDeckButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vaciar Mazo" />
+    </LinearLayout>
+
+    <!-- Barra de navegación inferior -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@drawable/bottom_background"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:elevation="2dp"
         app:menu="@menu/bottom_menu"
         app:itemIconSize="30dp"
         app:itemIconTint="@drawable/item_selector"
-        app:itemRippleColor="@android:color/transparent"
         app:labelVisibilityMode="unlabeled"
-        android:paddingHorizontal="10dp"/>
+        android:paddingHorizontal="10dp" />
+
 </RelativeLayout>
