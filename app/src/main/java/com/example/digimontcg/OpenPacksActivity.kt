@@ -55,9 +55,9 @@ class OpenPacksActivity : AppCompatActivity() {
                     // Actualizar RecyclerView para mostrar cartas obtenidas
                     recyclerView.adapter = CardsAdapter(
                         cards = packCards,
-                        userCards = mutableMapOf(), // Sin mapa de cartas del usuario en este caso
-                        onCardAdd = { /* No hacer nada */ },
-                        onCardRemove = { /* No hacer nada */ }
+                        userCards = mutableMapOf(),
+                        onCardAdd = { },
+                        onCardRemove = { }
                     )
                 } else {
                     Toast.makeText(this, "No hay cartas disponibles en BT1", Toast.LENGTH_SHORT).show()
@@ -71,7 +71,7 @@ class OpenPacksActivity : AppCompatActivity() {
 
     private fun generateRandomPack(cards: List<Card>): List<Card> {
         val result = mutableListOf<Card>()
-        repeat(12) { // 12 cartas por sobre
+        repeat(5) {
             val randomCard = cards.random() // Selección al azar
             result.add(randomCard)
         }
