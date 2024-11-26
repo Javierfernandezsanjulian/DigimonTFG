@@ -3,6 +3,7 @@ package com.example.digimontcg
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -19,6 +20,7 @@ class DeckBuilderActivity : AppCompatActivity() {
     private lateinit var deckRecyclerView: RecyclerView
     private lateinit var firestore: FirebaseFirestore
     private lateinit var userId: String
+    private lateinit var saveDeckButton: Button
 
     private val availableCards = mutableListOf<Card>() // Lista de cartas disponibles
     private val deckCards = mutableListOf<Card>() // Lista de cartas en el mazo
@@ -31,15 +33,20 @@ class DeckBuilderActivity : AppCompatActivity() {
         firestore = FirebaseFirestore.getInstance()
         userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
 
-        // Inicializar RecyclerViews
+        // Inicializar RecyclerViews y componentes
         availableCardsRecyclerView = findViewById(R.id.availableCardsRecyclerView)
         availableCardsRecyclerView.layoutManager = GridLayoutManager(this, 3)
 
         deckRecyclerView = findViewById(R.id.deckRecyclerView)
         deckRecyclerView.layoutManager = LinearLayoutManager(this)
 
+        saveDeckButton = findViewById(R.id.saveDeckButton)
+
         // Configurar navegación
         initBottomNavigation()
+
+        // Configurar listeners
+        initListeners()
 
         // Cargar cartas disponibles
         loadAvailableCards()
@@ -72,6 +79,12 @@ class DeckBuilderActivity : AppCompatActivity() {
                 }
             }
             false
+        }
+    }
+
+    private fun initListeners() {
+        saveDeckButton.setOnClickListener {
+            saveDeckToFirestore()
         }
     }
 
@@ -129,5 +142,33 @@ class DeckBuilderActivity : AppCompatActivity() {
             }
         }
         setupDeckAdapter()
+    }
+
+    private fun saveDeckToFirestore() {
+        if (deckCards.isEmpty()) {
+            Toast.makeText(this, "El mazo está vacío. Añade cartas antes de guardar.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val deckCollectionRef = firestore
+            .collection("users")
+            .document(userId)
+            .collection("decks")
+
+        val deckData = deckCards.map { card ->
+            mapOf(
+                "card_id" to card.card_id,
+                "name" to card.name,
+                "quantity" to card.quantity
+            )
+        }
+
+        deckCollectionRef.add(mapOf("cards" to deckData))
+            .addOnSuccessListener {
+                Toast.makeText(this, "Mazo guardado correctamente.", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error al guardar el mazo: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
     }
 }

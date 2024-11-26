@@ -9,5 +9,5 @@ data class Card(
     val pack: String = "",
     val rarity: String = "",
     val type: String = "",
-    var quantity: Int = 0
+    var quantity: Int =0,
 )
