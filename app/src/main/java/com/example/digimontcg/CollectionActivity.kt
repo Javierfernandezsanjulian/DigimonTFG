@@ -10,14 +10,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.ktx.toObjects
+import com.google.android.gms.tasks.Tasks
 
 class CollectionActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var gridLayoutManager: GridLayoutManager
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var collectionSwitchButton: Button
-    private var isDigital: Boolean = true
+    private var isDigital: Boolean = false
     private lateinit var firestore: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,12 +45,12 @@ class CollectionActivity : AppCompatActivity() {
         // Configurar el botón de cambio de colección
         collectionSwitchButton = findViewById(R.id.collectionSwitchButton)
 
-        // Mostrar la colección digital por defecto
-        loadDigitalCollection()
+        // Cargar colección física inicialmente
+        loadPhysicalCollection()
     }
 
     private fun initListeners() {
-        // Configurar el listener para el botón
+        // Configurar el listener para el botón de cambio de colección
         collectionSwitchButton.setOnClickListener {
             if (isDigital) {
                 collectionSwitchButton.text = "Cambiar a Digital"
@@ -75,7 +77,6 @@ class CollectionActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
                 R.id.bottom_profile -> {
-                    // Aquí puedes abrir otra actividad de perfil o ajustes
                     startActivity(Intent(applicationContext, SettingsActivity::class.java))
                     return@setOnItemSelectedListener true
                 }
@@ -105,25 +106,34 @@ class CollectionActivity : AppCompatActivity() {
                     return@addOnSuccessListener
                 }
 
-                // Obtener detalles de las cartas desde la colección "card"
-                firestore.collection("card")
-                    .whereIn("card_id", cardIds.map { it.first })
-                    .get()
-                    .addOnSuccessListener { cardSnapshot ->
-                        val cards = cardSnapshot.toObjects(Card::class.java)
-                        cards.forEach { card ->
-                            card.quantity = cardIds.find { it.first == card.card_id }?.second ?: 0
+                val cardIdChunks = cardIds.map { it.first }.chunked(10)
+                val tasks = cardIdChunks.map { chunk ->
+                    firestore.collection("card")
+                        .whereIn("card_id", chunk)
+                        .get()
+                }
+
+                // Ejecutar todas las consultas y combinar resultados
+                Tasks.whenAllSuccess<QuerySnapshot>(tasks)
+                    .addOnSuccessListener { results ->
+                        val cards = mutableListOf<Card>()
+                        results.forEach { querySnapshot ->
+                            val chunkCards = querySnapshot.toObjects<Card>()
+                            chunkCards.forEach { card ->
+                                card.quantity = cardIds.find { it.first == card.card_id }?.second ?: 0
+                            }
+                            cards.addAll(chunkCards)
                         }
-                        recyclerView.adapter = CardsAdapter(
-                            cards = cards,
-                            userCards = mutableMapOf(), // No necesitamos userCards aquí
-                            onCardAdd = {}, // Sin funcionalidad para añadir cartas aquí
-                            onCardRemove = {} // Sin funcionalidad para eliminar cartas aquí
-                        )
+
+                        // Configurar el adaptador para la vista digital
+                        recyclerView.adapter = SimpleCardsAdapter(cards)
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(this, "Error al cargar cartas digitales: ${e.message}", Toast.LENGTH_SHORT).show()
                     }
             }
             .addOnFailureListener { e ->
-                Toast.makeText(this, "Error al cargar la colección digital: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Error al cargar colección digital: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
 

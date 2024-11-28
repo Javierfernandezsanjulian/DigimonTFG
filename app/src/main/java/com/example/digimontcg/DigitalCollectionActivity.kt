@@ -59,12 +59,10 @@ class DigitalCollectionActivity : AppCompatActivity() {
                             card.quantity = quantity
                         }
                         digitalCards.addAll(cards)
-                        recyclerView.adapter = CardsAdapter(
-                            cards = digitalCards,
-                            userCards = mutableMapOf(), // No necesitamos userCards aquí
-                            onCardAdd = { /* No hacer nada */ },
-                            onCardRemove = { /* No hacer nada */ }
-                        )
+
+                        // Asignar el adaptador con el nuevo diseño
+                        recyclerView.adapter = SimpleCardsAdapter(digitalCards)
+
                     }
                     .addOnFailureListener { e ->
                         Toast.makeText(this, "Error al cargar detalles de cartas: ${e.message}", Toast.LENGTH_SHORT).show()
