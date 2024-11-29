@@ -11,7 +11,8 @@
         android:layout_height="400dp"
         android:scaleType="fitCenter"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"/>
 
     <!-- Botón para mostrar detalles -->
     <Button
@@ -19,9 +20,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Show Details"
-        android:layout_below="@id/cardDetailImage"
+        android:layout_below="@id/prevCardButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="10dp" />
 
     <!-- Contenedor de detalles -->
     <LinearLayout
@@ -57,7 +58,8 @@
         android:text="Anterior"
         android:layout_alignParentStart="true"
         android:layout_marginStart="16dp"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:layout_below="@id/cardDetailImage"/>
     <Button
         android:id="@+id/nextCardButton"
         android:layout_width="wrap_content"
@@ -65,6 +67,7 @@
         android:text="Siguiente"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="16dp"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:layout_below="@id/cardDetailImage" />
 
 </RelativeLayout>

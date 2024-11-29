@@ -37,9 +37,9 @@
       android:text="Cambiar a digital"
       android:layout_centerHorizontal="true"
       android:layout_alignParentBottom="true"
-      android:layout_marginBottom="80dp"
+      android:layout_marginBottom="90dp"
       android:background="@drawable/bottom_background"
-      android:paddingHorizontal="10dp" />
+      android:paddingHorizontal="10dp"/>
 
   <!-- Barra de navegación inferior -->
   <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -53,5 +53,7 @@
       app:itemIconTint="@drawable/item_selector"
       app:itemRippleColor="@android:color/transparent"
       app:labelVisibilityMode="unlabeled"
-      android:paddingHorizontal="10dp" />
+      android:paddingHorizontal="10dp"
+      android:layout_marginBottom="20dp"
+      android:elevation="2dp"/>
 </RelativeLayout>
