@@ -1,73 +1,91 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black">
+    android:background="#80000000"> <!-- Fondo semi-transparente -->
 
-    <!-- Imagen de la carta ampliada -->
-    <ImageView
+    <!-- Imagen con soporte de zoom -->
+    <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/cardDetailImage"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:scaleType="fitCenter"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="20dp"/>
+        android:contentDescription="Imagen ampliada de la carta" />
 
-    <!-- Botón para mostrar detalles -->
-    <Button
-        android:id="@+id/showDetailsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Show Details"
-        android:layout_below="@id/prevCardButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+    <!-- Botón de cerrar -->
+    <ImageButton
+        android:id="@+id/closeButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_close"
+        app:tint="@android:color/white"
+        android:background="@android:color/transparent"
+        android:contentDescription="Cerrar detalles" />
+
+    <!-- Botón previo -->
+    <ImageButton
+        android:id="@+id/prevCardButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_arrow_left"
+        app:tint="@android:color/white"
+        android:background="@android:color/transparent"
+        android:contentDescription="Carta anterior" />
+
+    <!-- Botón siguiente -->
+    <ImageButton
+        android:id="@+id/nextCardButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_arrow_right"
+        app:tint="@android:color/white"
+        android:background="@android:color/transparent"
+        android:contentDescription="Carta siguiente" />
 
     <!-- Contenedor de detalles -->
     <LinearLayout
         android:id="@+id/detailsContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
         android:orientation="vertical"
         android:padding="16dp"
-        android:visibility="gone"
-        android:layout_below="@id/showDetailsButton">
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/cardDetailName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name"
+            android:text="Nombre de la carta"
             android:textSize="18sp"
+            android:textStyle="bold"
             android:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/cardDetailDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Description"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="8dp" />
+            android:text="Descripción"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
+    <!-- Botón para alternar detalles -->
     <Button
-        android:id="@+id/prevCardButton"
+        android:id="@+id/showDetailsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Anterior"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="16dp"
-        android:layout_centerVertical="true"
-        android:layout_below="@id/cardDetailImage"/>
-    <Button
-        android:id="@+id/nextCardButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Siguiente"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp"
-        android:layout_centerVertical="true"
-        android:layout_below="@id/cardDetailImage" />
+        android:text="Show Details"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
 
 </RelativeLayout>

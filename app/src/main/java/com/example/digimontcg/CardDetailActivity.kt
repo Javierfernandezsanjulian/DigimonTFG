@@ -3,17 +3,19 @@ package com.example.digimontcg
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.ImageView
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.github.chrisbanes.photoview.PhotoView
 
 class CardDetailActivity : AppCompatActivity() {
 
-    private lateinit var cardImage: ImageView
-    private lateinit var showDetailsButton: Button
-    private lateinit var prevButton: Button
-    private lateinit var nextButton: Button
+    private lateinit var cardImage: PhotoView // Cambiado a PhotoView para soporte de zoom
+    private lateinit var prevButton: ImageButton
+    private lateinit var nextButton: ImageButton
+    private lateinit var closeButton: ImageButton
+    private lateinit var showDetailsCheckbox: Button
     private lateinit var detailsContainer: View
     private lateinit var cardName: TextView
     private lateinit var cardDescription: TextView
@@ -27,9 +29,10 @@ class CardDetailActivity : AppCompatActivity() {
 
         // Inicializar vistas
         cardImage = findViewById(R.id.cardDetailImage)
-        showDetailsButton = findViewById(R.id.showDetailsButton)
         prevButton = findViewById(R.id.prevCardButton)
         nextButton = findViewById(R.id.nextCardButton)
+        closeButton = findViewById(R.id.closeButton)
+        showDetailsCheckbox = findViewById(R.id.showDetailsButton) // Cambié a Button y ajusté el ID
         detailsContainer = findViewById(R.id.detailsContainer)
         cardName = findViewById(R.id.cardDetailName)
         cardDescription = findViewById(R.id.cardDetailDescription)
@@ -43,12 +46,13 @@ class CardDetailActivity : AppCompatActivity() {
             showCard(currentCardIndex)
         }
 
-        // Configurar botones
-        showDetailsButton.setOnClickListener {
+        // Configurar el botón para mostrar/ocultar detalles
+        showDetailsCheckbox.setOnClickListener {
             detailsContainer.visibility =
                 if (detailsContainer.visibility == View.GONE) View.VISIBLE else View.GONE
         }
 
+        // Configurar navegación
         prevButton.setOnClickListener {
             if (currentCardIndex > 0) {
                 currentCardIndex--
@@ -62,6 +66,10 @@ class CardDetailActivity : AppCompatActivity() {
                 showCard(currentCardIndex)
             }
         }
+
+        closeButton.setOnClickListener {
+            finish() // Cierra la actividad
+        }
     }
 
     private fun showCard(index: Int) {
@@ -69,6 +77,7 @@ class CardDetailActivity : AppCompatActivity() {
         Glide.with(this)
             .load("file:///android_asset/cards/${card.card_id}.jpg")
             .into(cardImage)
+
         cardName.text = card.name
         cardDescription.text = card.description
     }
