@@ -1,5 +1,6 @@
 package com.example.digimontcg
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,6 +44,12 @@ class CardsAdapter(
         Glide.with(holder.cardImage.context)
             .load(imagePath)
             .into(holder.cardImage)
+        holder.cardImage.setOnClickListener {
+            val intent = Intent(holder.cardImage.context, CardDetailActivity::class.java)
+            intent.putExtra("currentIndex", position)
+            intent.putExtra("cards", ArrayList(cards))
+            holder.cardImage.context.startActivity(intent)
+        }
 
         // Ajustar opacidad según si la carta está en la colección del usuario
         holder.cardImage.alpha = if (quantity > 0) 1.0f else 0.5f

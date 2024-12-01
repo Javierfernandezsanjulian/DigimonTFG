@@ -1,5 +1,14 @@
 <resources>
+    <!-- Tema principal de la aplicación -->
     <style name="Theme.DigimonTCG" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Aquí puedes incluir otras personalizaciones para el tema principal -->
+    </style>
 
+    <!-- Estilo para el diálogo a pantalla completa -->
+    <style name="FullScreenDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
     </style>
 </resources>
