@@ -104,7 +104,7 @@ class DashboardActivity : AppCompatActivity() {
                 return true
             }
             R.id.bottom_deck -> {
-                startActivity(Intent(this, DeckBuilderActivity::class.java))
+                startActivity(Intent(this, DeckCollectionActivity::class.java))
                 finish()
                 return true
             }
@@ -113,11 +113,6 @@ class DashboardActivity : AppCompatActivity() {
                 finish()
                 return true
             }
-            R.id.bottom_deck -> {
-                startActivity(Intent(this, DeckCollectionActivity::class.java))
-                finish()
-                return true
-        }
         }
         return false
     }
