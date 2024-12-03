@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 class EditionAdapter(
     private val editions: List<Edition>,
@@ -28,7 +29,9 @@ class EditionAdapter(
         val edition = editions[position]
         holder.titleTextView.text = edition.name
         holder.countTextView.text = "${edition.cardCount} cartas"
-        holder.imageView.setImageResource(edition.image)
+        Glide.with(holder.imageView.context)
+            .load("file:///android_asset/editions/${edition.image}.png")
+            .into(holder.imageView)
 
         // Configurar clic en la tarjeta
         holder.itemView.setOnClickListener { onClick(edition) }

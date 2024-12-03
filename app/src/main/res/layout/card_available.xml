@@ -1,0 +1,39 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="4dp"
+    android:background="@android:color/white"
+    android:layout_margin="4dp"
+    android:elevation="4dp">
+
+    <!-- Imagen de la carta -->
+    <ImageView
+        android:id="@+id/cardImage"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/card_image" />
+
+    <TextView
+        android:id="@+id/cardId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Card Id"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:paddingTop="4dp" />
+
+    <!-- Nombre de la carta -->
+    <TextView
+        android:id="@+id/cardName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Card Name"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:paddingTop="2dp" />
+</LinearLayout>

@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Hola de nuevo " + (currentUser.email?.split("@")?.get(0) ?: "UnknownUser") + "!", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, DashboardActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 

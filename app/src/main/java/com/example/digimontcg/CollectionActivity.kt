@@ -72,7 +72,7 @@ class CollectionActivity : AppCompatActivity() {
                 }
                 R.id.bottom_collection -> return@setOnItemSelectedListener true
                 R.id.bottom_deck -> {
-                    startActivity(Intent(applicationContext, DeckBuilderActivity::class.java))
+                    startActivity(Intent(applicationContext, DeckCollectionActivity::class.java))
                     finish()
                     return@setOnItemSelectedListener true
                 }
@@ -151,7 +151,25 @@ class CollectionActivity : AppCompatActivity() {
     // Función para obtener la lista de ediciones
     private fun getEditions(): List<Edition> {
         return listOf(
-            Edition("BT1", 136, R.drawable.bt1_image),
+            Edition("BT1 - New Evolution", 115, "bt01_image"),
+            Edition("BT2 - Ultimate Power", 112, "bt02_image"),
+            Edition("BT3 - Union Impact", 112, "bt03_image"),
+            Edition("BT4 - Great Legend", 115, "bt04_image"),
+            Edition("BT5 - Battle of Omni", 112, "bt05_image"),
+            Edition("BT6 - Double Diamond", 112, "bt06_image"),
+            Edition("BT7 - Next Adventure", 112, "bt07_image"),
+            Edition("BT8 - New Awakening", 112, "bt08_image"),
+            Edition("BT9 - X Record", 112, "bt09_image"),
+            Edition("BT10 - Xros Encounter", 112, "bt10_image"),
+            Edition("BT11 - Dimensional Phase", 112, "bt11_image"),
+            Edition("BT12 - Across Time", 112, "bt12_image"),
+            Edition("BT13 - Versus Royal Knights", 112, "bt13_image"),
+            Edition("BT14 - Blast Ace", 102, "bt14_image"),
+            Edition("BT15 - Exceed Apocalypse", 102, "bt15_image"),
+            Edition("BT16 - Beginning Observer", 102, "bt16_image"),
+            Edition("BT17 - Secret Crisis", 102, "bt17_image"),
+            Edition("BT18 - Elemental Successor", 102, "bt18_image"),
+            Edition("BT19 - Xros Evolution", 102, "bt19_image"),
         )
     }
 }

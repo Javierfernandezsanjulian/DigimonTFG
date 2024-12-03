@@ -1,10 +1,12 @@
 package com.example.digimontcg
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -12,6 +14,7 @@ class CardsActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var firestore: FirebaseFirestore
+    private lateinit var bottomNavigationView: BottomNavigationView
     private val userCards = mutableMapOf<String, Int>() // Almacena las cartas del usuario
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,9 +33,11 @@ class CardsActivity : AppCompatActivity() {
 
         // Cargar cartas desde Firestore
         fetchCardsFromFirestore(editionName)
+
     }
 
     private fun fetchCardsFromFirestore(editionName: String) {
+        var editionNameSplitted = editionName.split("-")[0].replace(" ", "")
         val cardList = mutableListOf<Card>()
         val userId = FirebaseAuth.getInstance().currentUser?.uid
 
@@ -45,7 +50,7 @@ class CardsActivity : AppCompatActivity() {
         val userCollectionRef = firestore.collection("users").document(userId).collection("collection")
 
         // Paso 1: Recuperar todas las cartas de la edición
-        cardRef.whereEqualTo("pack", editionName).get()
+        cardRef.whereEqualTo("pack", editionNameSplitted).get()
             .addOnSuccessListener { querySnapshot ->
                 for (document in querySnapshot.documents) {
                     val card = document.toObject(Card::class.java)

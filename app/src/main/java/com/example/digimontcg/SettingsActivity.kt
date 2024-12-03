@@ -48,7 +48,7 @@ class SettingsActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
                 R.id.bottom_deck -> {
-                    startActivity(Intent(applicationContext, DeckBuilderActivity::class.java))
+                    startActivity(Intent(applicationContext, DeckCollectionActivity::class.java))
                     finish()
                     return@setOnItemSelectedListener true
                 }
@@ -56,6 +56,7 @@ class SettingsActivity : AppCompatActivity() {
             }
             false
         }
+        bottomNavigationView.setSelectedItemId(R.id.bottom_profile)
     }
 
     private fun logout() {

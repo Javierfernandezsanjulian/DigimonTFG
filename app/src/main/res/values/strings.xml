@@ -14,4 +14,27 @@
     <string name="digital_collection" translatable="false">Digital Collection</string>
     <string name="deck_builder" translatable="false">Deck Builder</string>
     <string name="card_image">Imagen de la carta</string>
+
+    <string name="spinner_card_type" translatable="false">Card Type</string>
+    <string name="spinner_card_color" translatable="false">Card Color</string>
+
+    <string-array name="card_types">
+        <item>No Type Filter</item>
+        <item>Digimon</item>
+        <item>Digi-Egg</item>
+        <item>Option</item>
+        <item>Tamer</item>
+    </string-array>
+
+    <string-array name="card_colors">
+        <item>No Color Filter</item>
+        <item>Black</item>
+        <item>Blue</item>
+        <item>Colorless</item>
+        <item>Green</item>
+        <item>Purple</item>
+        <item>Red</item>
+        <item>White</item>
+        <item>Yellow</item>
+    </string-array>
 </resources>

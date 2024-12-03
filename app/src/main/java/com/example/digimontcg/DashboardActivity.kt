@@ -58,7 +58,7 @@ class DashboardActivity : AppCompatActivity() {
                     startActivity(
                         Intent(
                             applicationContext,
-                            DeckBuilderActivity::class.java
+                            DeckCollectionActivity::class.java
                         )
                     )
                     finish()
@@ -118,7 +118,7 @@ class DashboardActivity : AppCompatActivity() {
                             ).show()
                         }
                 } else {
-                    Toast.makeText(this, "Colección digital ya existe", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(this, "Colección digital ya existe", Toast.LENGTH_SHORT).show()
                 }
             }
             .addOnFailureListener { e ->
