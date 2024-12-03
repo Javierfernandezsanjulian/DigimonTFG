@@ -1,0 +1,24 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#800000"
+    android:gravity="center">
+
+    <!-- Imagen del sobre cerrado -->
+    <ImageView
+        android:id="@+id/closedEnvelope"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/bt1_image"
+        android:contentDescription="Sobre cerrado" />
+
+    <!-- Contenido del sobre (las cartas) -->
+    <ImageView
+        android:id="@+id/envelopeContent"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/card_back"
+        android:visibility="invisible"
+        android:contentDescription="Contenido del sobre" />
+</FrameLayout>
