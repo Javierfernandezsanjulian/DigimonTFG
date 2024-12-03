@@ -328,7 +328,6 @@ class DeckBuilderActivity : AppCompatActivity() {
                 eggCount += cardInDeck.quantity
         }
 
-        Toast.makeText(this, "quantity: " + (card.quantity + 1) + ", eggcount: " + eggCount + ", decksize: " + deckSize, Toast.LENGTH_SHORT).show()
         if (deckSize >= 50) return "You cannot have more than 50 cards in your deck."
         if (card.quantity + 1 > 4) return "You cannot have more than 4 copies of ${card.name} in your deck."
         if (eggCount > 5) return "You cannot have more than 5 Digi-Egg cards in your deck."
