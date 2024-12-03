@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1018651469361",
+    "firebase_url": "https://digimondttfg-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "digimondttfg",
     "storage_bucket": "digimondttfg.firebasestorage.app"
   },
@@ -12,7 +13,12 @@
           "package_name": "com.example.digimontcg"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1018651469361-j1lko3jf1ofn7a6ibnd7grui27ksas1u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBF14EwPoUnZLGO_tCocrahlajht7Wy8TU"
@@ -20,7 +26,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1018651469361-j1lko3jf1ofn7a6ibnd7grui27ksas1u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

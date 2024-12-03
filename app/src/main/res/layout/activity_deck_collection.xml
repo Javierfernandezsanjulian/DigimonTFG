@@ -1,0 +1,75 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <!-- Título de la Colección -->
+    <TextView
+        android:id="@+id/collectionDeckTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Colección de Mazos"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"
+        android:layout_alignParentTop="true" />
+
+    <!-- RecyclerView para mostrar las ediciones -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/collectionDeckHolder"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/collectionDeckTitle"
+        android:layout_above="@id/layoutAddButton"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp" />
+
+    <LinearLayout
+        android:id="@+id/layoutAddButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintDimensionRatio="1:1"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bottom_background"
+        android:src="@drawable/add_button_logo"
+        app:itemIconTint="@drawable/item_selector"
+        android:layout_above="@id/bottomNavigationView"
+        android:padding="5dp"
+        android:elevation="2dp">
+
+        <ImageButton
+            android:id="@+id/deckAddButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Create new Deck"
+            app:layout_constraintDimensionRatio="1:1"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/add_button_logo"
+            android:layout_above="@id/bottomNavigationView"/>
+    </LinearLayout>
+
+
+    <!-- Barra de navegación inferior -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottom_background"
+        app:menu="@menu/bottom_menu"
+        app:itemIconSize="30dp"
+        app:itemIconTint="@drawable/item_selector"
+        app:itemRippleColor="@android:color/transparent"
+        app:labelVisibilityMode="unlabeled"
+        android:paddingHorizontal="10dp"
+        android:layout_marginBottom="20dp"
+        android:elevation="2dp"/>
+</RelativeLayout>

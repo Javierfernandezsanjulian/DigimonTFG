@@ -45,7 +45,7 @@ class DashboardActivity : AppCompatActivity() {
         animatorSet.setTarget(packImage)
 
         packImage.isClickable = false // Desactivar clic durante la animación
-
+        
         animatorSet.addListener(object : Animator.AnimatorListener {
             override fun onAnimationStart(animation: Animator) {
                 // Nada que hacer al inicio
@@ -110,8 +110,14 @@ class DashboardActivity : AppCompatActivity() {
             }
             R.id.bottom_profile -> {
                 startActivity(Intent(this, SettingsActivity::class.java))
+                finish()
                 return true
             }
+            R.id.bottom_deck -> {
+                startActivity(Intent(this, DeckCollectionActivity::class.java))
+                finish()
+                return true
+        }
         }
         return false
     }
@@ -152,7 +158,7 @@ class DashboardActivity : AppCompatActivity() {
                             ).show()
                         }
                 } else {
-                    Toast.makeText(this, "Colección digital ya existe", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(this, "Colección digital ya existe", Toast.LENGTH_SHORT).show()
                 }
             }
             .addOnFailureListener { e ->

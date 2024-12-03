@@ -16,45 +16,148 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp" />
 
-    <!-- Barra de búsqueda -->
-    <EditText
-        android:id="@+id/filterEditText"
+    <RelativeLayout
+        android:id="@+id/constraintLayoutFilterHolder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Buscar cartas"
-        android:layout_below="@id/deckBuilderTitle"
-        android:padding="12dp"
-        android:background="@android:drawable/edit_text" />
+        android:layout_below="@id/deckBuilderTitle">
 
-    <!-- RecyclerView para cartas disponibles -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/availableCardsRecyclerView"
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/filterSearchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:queryHint="Buscar cartas"
+            android:background="@drawable/round_button"
+            android:iconifiedByDefault="false"
+            android:layout_toLeftOf="@id/filterButton"
+            android:elevation="2dp"
+            android:layout_marginEnd="5dp"/>
+
+        <ImageButton
+            android:id="@+id/filterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_button"
+            android:src="@drawable/filter_button_logo"
+            android:elevation="2dp"
+            android:layout_alignParentEnd="true"
+            android:padding="4dp"
+            />
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/filterMenu"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_below="@id/filterEditText"
-        android:layout_marginTop="8dp"
-        android:background="#F3F3F3" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/constraintLayoutFilterHolder"
+        android:visibility="gone"
+        android:background="@drawable/round_button"
+        android:padding="16dp"
+        android:layout_marginTop="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Menús desplegables (Spinners) -->
+            <Spinner
+                android:id="@+id/spinnerCardType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:prompt="@string/spinner_card_type"/>
+
+            <Spinner
+                android:id="@+id/spinnerColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:prompt="@string/spinner_card_color"/>
+
+            <!-- Botón Reset -->
+            <Button
+                android:id="@+id/buttonReset"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Reset"
+                android:background="@drawable/round_button_blue"
+                android:layout_marginTop="8dp"/>
+
+            <!-- Botón Aplicar -->
+            <Button
+                android:id="@+id/buttonApply"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Apply"
+                android:background="@drawable/round_button_blue"
+                android:layout_marginTop="8dp"/>
+
+        </LinearLayout>
+    </ScrollView>
 
     <!-- Título para el mazo -->
     <TextView
         android:id="@+id/deckTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tu Mazo"
+        android:text="Your Deck"
         android:textSize="18sp"
-        android:layout_below="@id/availableCardsRecyclerView"
-        android:layout_marginTop="16dp"
+        android:layout_below="@id/filterMenu"
+        android:layout_marginTop="10dp"
         android:textStyle="bold" />
 
     <!-- RecyclerView para el mazo -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/deckRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="280px"
         android:layout_below="@id/deckTitle"
         android:layout_marginTop="8dp"
-        android:background="#F9F9F9"
-        android:layout_above="@id/buttonContainer"/>
+        android:background="@drawable/round_button"/>
+
+    <TextView
+        android:id="@+id/noCardText"
+        android:layout_width="match_parent"
+        android:layout_height="280px"
+        android:layout_below="@id/deckTitle"
+        android:gravity="center"
+        android:text="\nTouch a card to add it to the deck\nHold the card to view details"
+        android:textAlignment="center" />
+
+    <ImageButton
+        android:id="@+id/deckInfoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/info_button_logo"
+        android:layout_below="@id/deckTitle"
+        android:elevation="2dp"
+        android:foregroundGravity="top"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="4dp"
+        android:padding="4dp"
+        />
+
+    <TextView
+        android:id="@+id/availableCardsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Available cards"
+        android:textSize="18sp"
+        android:layout_below="@id/deckRecyclerView"
+        android:layout_marginTop="8dp"
+        android:textStyle="bold" />
+
+    <!-- RecyclerView para cartas disponibles -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/availableCardsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/availableCardsTitle"
+        android:background="@drawable/round_button" />
 
     <!-- Botones -->
     <LinearLayout
@@ -62,38 +165,57 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_above="@id/bottomNavigationView"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/round_button_transparent"
         android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/returnDeckButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/round_button"
+            android:elevation="2dp"
+            android:paddingHorizontal="13dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/return_button_logo"
+            app:layout_constraintDimensionRatio="1:1" />
 
         <Button
             android:id="@+id/saveDeckButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Guardar Mazo"
-            android:layout_marginEnd="16dp" />
+            android:text="Save"
+            android:background="@drawable/round_button_blue"
+            android:layout_marginVertical="5dp"
+            android:paddingHorizontal="10dp"
+            android:layout_marginEnd="16dp"/>
 
         <Button
             android:id="@+id/clearDeckButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Vaciar Mazo" />
+            android:text="Clear"
+            android:background="@drawable/round_button"
+            android:layout_marginVertical="5dp"
+            android:paddingHorizontal="10dp"
+            android:layout_marginEnd="16dp" />
+
+        <ImageButton
+            android:id="@+id/deleteDeckButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/round_button"
+            android:elevation="2dp"
+            android:paddingHorizontal="16dp"
+            android:src="@drawable/delete_button_logo"
+            app:layout_constraintDimensionRatio="1:1" />
     </LinearLayout>
 
-    <!-- Barra de navegación inferior -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/bottom_background"
-        app:menu="@menu/bottom_menu"
-        app:itemIconSize="30dp"
-        app:itemIconTint="@drawable/item_selector"
-        app:labelVisibilityMode="unlabeled"
-        android:paddingHorizontal="10dp"
-        android:layout_marginBottom="20dp"
-        android:elevation="2dp"/>
 
 </RelativeLayout>
