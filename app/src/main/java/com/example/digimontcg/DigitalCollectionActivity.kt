@@ -61,7 +61,9 @@ class DigitalCollectionActivity : AppCompatActivity() {
                         digitalCards.addAll(cards)
 
                         // Asignar el adaptador con el nuevo diseño
-                        recyclerView.adapter = SimpleCardsAdapter(digitalCards)
+                        recyclerView.adapter = SimpleCardsAdapter(digitalCards, showQuantity = true)
+
+
 
                     }
                     .addOnFailureListener { e ->

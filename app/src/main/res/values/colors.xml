@@ -7,6 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grey">#9C9C9C</color>
     <color name="primaryColor">#005FEE</color> <!-- Color personalizado -->
     <color name="primaryColorDark">#064AB3</color> <!-- (Opcional) tono oscuro -->
     <color name="primaryColorLight">#2B76F2</color> <!-- (Opcional) tono claro -->

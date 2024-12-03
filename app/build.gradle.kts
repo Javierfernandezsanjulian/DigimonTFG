@@ -54,40 +54,45 @@ android {
 
 dependencies {
     // Firebase BOM: Alinea versiones de Firebase automáticamente
-    implementation (platform("com.google.firebase:firebase-bom:33.6.0"))
+    implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
 
     // Firebase servicios específicos
-    implementation ("com.google.firebase:firebase-auth")
-    implementation ("com.google.firebase:firebase-firestore")
-    implementation ("com.google.firebase:firebase-database")
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-database")
 
     // Glide para carga de imágenes
-    implementation ("com.github.bumptech.glide:glide:4.15.1")
-    implementation(libs.androidx.recyclerview)
-    kapt ("com.github.bumptech.glide:compiler:4.15.1")
+    implementation("com.github.bumptech.glide:glide:4.15.1")
+    kapt("com.github.bumptech.glide:compiler:4.15.1")
 
     // Jetpack Compose y dependencias adicionales
-    implementation (platform(libs.androidx.compose.bom))
-    implementation ("androidx.compose.ui:ui")
-    implementation ("androidx.compose.material3:material3")
-    implementation ("androidx.compose.ui:ui-tooling-preview")
-    implementation ("androidx.recyclerview:recyclerview:1.3.1")
-    implementation (libs.androidx.activity.compose)
+    implementation(platform("androidx.compose:compose-bom:2023.03.00"))
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.activity:activity-compose:1.6.1")
 
-            // Dependencias adicionales de Android
-            implementation (libs.androidx.core.ktx)
-            implementation (libs.androidx.lifecycle.runtime.ktx)
-            implementation (libs.androidx.appcompat)
-            implementation (libs.material)
-            implementation (libs.androidx.activity)
-            implementation (libs.androidx.constraintlayout)
+    // RecyclerView
+    implementation("androidx.recyclerview:recyclerview:1.3.1")
+
+    // Dependencias adicionales de Android
+    implementation("androidx.core:core-ktx:1.10.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.9.0")
+    implementation("androidx.activity:activity-ktx:1.7.2")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+
+    // PhotoView para gestos de zoom
+    implementation("com.github.Baseflow:PhotoView:2.3.0")
+
 
     // Dependencias de prueba
-            testImplementation (libs.junit)
-            androidTestImplementation (libs.androidx.junit)
-            androidTestImplementation (libs.androidx.espresso.core)
-            debugImplementation ("androidx.compose.ui:ui-tooling")
-    debugImplementation ("androidx.compose.ui:ui-test-manifest")
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    debugImplementation("androidx.compose.ui:ui-tooling")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
 }
 
 // Aplica Google Services al final

@@ -126,7 +126,8 @@ class CollectionActivity : AppCompatActivity() {
                         }
 
                         // Configurar el adaptador para la vista digital
-                        recyclerView.adapter = SimpleCardsAdapter(cards)
+                        recyclerView.adapter = SimpleCardsAdapter(cards, showQuantity = true)
+
                     }
                     .addOnFailureListener { e ->
                         Toast.makeText(this, "Error al cargar cartas digitales: ${e.message}", Toast.LENGTH_SHORT).show()

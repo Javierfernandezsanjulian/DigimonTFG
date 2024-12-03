@@ -1,35 +1,31 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- Título -->
-    <TextView
-        android:id="@+id/openPackTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Abrir Sobres"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
-
-    <!-- Botón de Abrir Sobre -->
-    <Button
-        android:id="@+id/openPackButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Abrir Sobre"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/openPackTitle"
-        android:layout_marginTop="24dp" />
-
-    <!-- RecyclerView para mostrar las cartas obtenidas -->
+    <!-- RecyclerView para mostrar cartas -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/packCardsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/openPackButton"
-        android:layout_marginTop="16dp" />
+        android:padding="16dp"
+        android:layout_centerInParent="true"
+        android:scrollbars="vertical" />
 
+    <!-- Barra de navegación inferior -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bottomNavigationView"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottom_background"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:elevation="2dp"
+        app:menu="@menu/bottom_menu"
+        app:itemIconSize="30dp"
+        app:itemIconTint="@drawable/item_selector"
+        app:itemRippleColor="@android:color/transparent"
+        app:labelVisibilityMode="unlabeled"
+        android:paddingHorizontal="10dp" />
 </RelativeLayout>

@@ -10,12 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 class SimpleCardsAdapter(
-    private val cards: List<Card>
+    private val cards: List<Card>,
+    private val showQuantity: Boolean // Nuevo parámetro para controlar la visibilidad de la cantidad
 ) : RecyclerView.Adapter<SimpleCardsAdapter.SimpleCardViewHolder>() {
 
     class SimpleCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val cardImage: ImageView = view.findViewById(R.id.cardImage)
-        val cardName: TextView = view.findViewById(R.id.cardName)
+        val cardQuantityText: TextView = view.findViewById(R.id.cardQuantityText)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleCardViewHolder {
@@ -26,13 +27,20 @@ class SimpleCardsAdapter(
 
     override fun onBindViewHolder(holder: SimpleCardViewHolder, position: Int) {
         val card = cards[position]
-        holder.cardName.text = card.name
 
-        // Usar Glide para cargar la imagen
+        // Usar Glide para cargar la imagen de la carta
         Glide.with(holder.cardImage.context)
             .load("file:///android_asset/cards/${card.card_id}.jpg")
             .fitCenter()
             .into(holder.cardImage)
+
+        // Configurar la visibilidad del texto de cantidad según el valor de `showQuantity`
+        if (showQuantity) {
+            holder.cardQuantityText.text = "x${card.quantity}"
+            holder.cardQuantityText.visibility = View.VISIBLE
+        } else {
+            holder.cardQuantityText.visibility = View.GONE
+        }
 
         // Configurar click para abrir CardDetailActivity
         holder.itemView.setOnClickListener {
@@ -43,6 +51,7 @@ class SimpleCardsAdapter(
             context.startActivity(intent)
         }
     }
+
     override fun getItemCount(): Int {
         return cards.size
     }
