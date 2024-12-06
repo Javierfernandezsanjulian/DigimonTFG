@@ -5,9 +5,13 @@ import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -18,26 +22,95 @@ class DashboardActivity : AppCompatActivity() {
 
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var packImage: ImageView
+    private lateinit var progressBar: ProgressBar
+    private lateinit var timerTextView: TextView
+    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var firestore: FirebaseFirestore
+
     private var isPackOpened = false // Variable para rastrear el estado del sobre
+
+    companion object {
+        const val LAST_OPENED_TIMESTAMP_KEY = "last_opened_timestamp"
+        const val TIME_LIMIT_MS = 2 * 60 * 60 * 1000 // 2 horas en milisegundos
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
         firestore = FirebaseFirestore.getInstance()
+        sharedPreferences = getSharedPreferences("OpenPacksPrefs", MODE_PRIVATE)
 
         // Inicializar componentes
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
         packImage = findViewById(R.id.packImage)
+        progressBar = findViewById(R.id.progressBar)
+        timerTextView = findViewById(R.id.timerTextView)
 
         // Configurar listeners
         packImage.setOnClickListener {
-            playOpenPackAnimation()
+            if (canOpenPack()) {
+                playOpenPackAnimation()
+            } else {
+                Toast.makeText(this, "Espera a que termine el temporizador para abrir otro sobre.", Toast.LENGTH_SHORT).show()
+            }
         }
         bottomNavigationView.setOnItemSelectedListener { navigateTo(it.itemId) }
 
         ensureDigitalCollectionExists()
+
+        // Verificar si el sobre está disponible
+        if (canOpenPack()) {
+            enablePackOpening()
+        } else {
+            disablePackOpening()
+        }
+    }
+
+    private fun canOpenPack(): Boolean {
+        val lastOpenedTimestamp = sharedPreferences.getLong(LAST_OPENED_TIMESTAMP_KEY, 0)
+        val currentTime = System.currentTimeMillis()
+        return (currentTime - lastOpenedTimestamp) >= TIME_LIMIT_MS
+    }
+
+    private fun enablePackOpening() {
+        packImage.isEnabled = true
+        packImage.visibility = View.VISIBLE
+        progressBar.visibility = View.GONE
+        timerTextView.visibility = View.GONE
+    }
+
+    private fun disablePackOpening() {
+        packImage.isEnabled = false
+        progressBar.visibility = View.VISIBLE
+        timerTextView.visibility = View.VISIBLE
+
+        val lastOpenedTimestamp = sharedPreferences.getLong(LAST_OPENED_TIMESTAMP_KEY, 0)
+        val timeRemaining = TIME_LIMIT_MS - (System.currentTimeMillis() - lastOpenedTimestamp)
+
+        startCountdownTimer(timeRemaining)
+    }
+
+    private fun startCountdownTimer(timeRemaining: Long) {
+        progressBar.max = TIME_LIMIT_MS.toInt()
+        progressBar.progress = (TIME_LIMIT_MS - timeRemaining).toInt()
+
+        object : CountDownTimer(timeRemaining, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val hours = millisUntilFinished / (1000 * 60 * 60)
+                val minutes = (millisUntilFinished / (1000 * 60)) % 60
+                val seconds = (millisUntilFinished / 1000) % 60
+
+                timerTextView.text = String.format("%02d:%02d:%02d", hours, minutes, seconds)
+
+                // Actualizar barra de progreso
+                progressBar.progress = (TIME_LIMIT_MS - millisUntilFinished).toInt()
+            }
+
+            override fun onFinish() {
+                enablePackOpening()
+            }
+        }.start()
     }
 
     private fun playOpenPackAnimation() {
@@ -45,24 +118,22 @@ class DashboardActivity : AppCompatActivity() {
         animatorSet.setTarget(packImage)
 
         packImage.isClickable = false // Desactivar clic durante la animación
-        
+
         animatorSet.addListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator) {
-                // Nada que hacer al inicio
-            }
+            override fun onAnimationStart(animation: Animator) {}
 
             override fun onAnimationEnd(animation: Animator) {
-                // Al finalizar la animación, ocultamos el sobre
                 isPackOpened = true
                 packImage.visibility = View.INVISIBLE
 
-                // Abrir la actividad para abrir sobres
-                val intent = Intent(this@DashboardActivity, OpenPacksActivity::class.java)
-                startActivityForResult(intent, 1001)
+                // Guardar el timestamp al abrir el sobre
+                sharedPreferences.edit().putLong(LAST_OPENED_TIMESTAMP_KEY, System.currentTimeMillis()).apply()
+
+                // Redirigir a OpenPacksActivity
+                startActivityForResult(Intent(this@DashboardActivity, OpenPacksActivity::class.java), 1001)
             }
 
             override fun onAnimationCancel(animation: Animator) {
-                // Restaurar clic y visibilidad si se cancela
                 packImage.isClickable = true
                 packImage.visibility = View.VISIBLE
             }
@@ -73,25 +144,17 @@ class DashboardActivity : AppCompatActivity() {
         animatorSet.start()
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        // Volver a mostrar el sobre al presionar el botón de retroceso
-        packImage.visibility = View.VISIBLE
-        isPackOpened = false // Restablecer el estado del sobre
-    }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == 1001 && resultCode == Activity.RESULT_OK) {
-            val isPackOpened = data?.getBooleanExtra("isPackOpened", false) ?: false
-            packImage.visibility = if (isPackOpened) View.INVISIBLE else View.VISIBLE
+    override fun onResume() {
+        super.onResume()
+        if (!isPackOpened && canOpenPack()) {
+            enablePackOpening()
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (!isPackOpened) {
-            packImage.visibility = View.VISIBLE
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1001 && resultCode == Activity.RESULT_OK) {
+            disablePackOpening()
         }
     }
 
@@ -136,32 +199,11 @@ class DashboardActivity : AppCompatActivity() {
                         "message" to "Colección inicializada",
                         "timestamp" to System.currentTimeMillis()
                     )
-                    digitalCollectionRef.document("init_document")
-                        .set(initialData)
-                        .addOnSuccessListener {
-                            Toast.makeText(
-                                this,
-                                "Colección digital creada exitosamente",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                        .addOnFailureListener { e ->
-                            Toast.makeText(
-                                this,
-                                "Error al crear colección digital: ${e.message}",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                } else {
-                    //Toast.makeText(this, "Colección digital ya existe", Toast.LENGTH_SHORT).show()
+                    digitalCollectionRef.document("init_document").set(initialData)
                 }
             }
             .addOnFailureListener { e ->
-                Toast.makeText(
-                    this,
-                    "Error al verificar colección digital: ${e.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(this, "Error al verificar colección digital: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
 }

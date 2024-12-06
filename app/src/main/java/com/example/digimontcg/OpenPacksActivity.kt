@@ -17,7 +17,7 @@ class OpenPacksActivity : AppCompatActivity() {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var recyclerView: RecyclerView
     private val packCards = mutableListOf<Card>()
-    private lateinit var bottomNavigationView: BottomNavigationView // Barra de navegación inferior
+    private lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,13 +29,12 @@ class OpenPacksActivity : AppCompatActivity() {
         // Configurar RecyclerView
         recyclerView = findViewById(R.id.packCardsRecyclerView)
         recyclerView.layoutManager = GridLayoutManager(this, 3)
-        recyclerView.adapter = SimpleCardsAdapter(packCards, showQuantity = false)
 
-        // Inicializar la barra de navegación inferior
+        // Inicializar barra de navegación inferior
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomNavigationView.setOnItemSelectedListener { navigateTo(it.itemId) }
 
-        // Llamar a openPack directamente para obtener las cartas
+        // Obtener cartas al abrir la actividad
         openPack()
     }
 
@@ -66,17 +65,14 @@ class OpenPacksActivity : AppCompatActivity() {
                     // Guardar las cartas en la colección digital del usuario
                     saveCardsToDigitalCollection(userId, newCards)
 
-                    // Usar el adaptador personalizado para mostrar cartas volteadas
+                    // Mostrar las cartas con el adaptador
                     recyclerView.adapter = OpenPacksAdapter(packCards)
-
                 } else {
-                    Toast.makeText(this, "No hay cartas disponibles en BT1", Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(this, "No hay cartas disponibles en BT1", Toast.LENGTH_SHORT).show()
                 }
             }
             .addOnFailureListener { e ->
-                Toast.makeText(this, "Error al cargar cartas: ${e.message}", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(this, "Error al cargar cartas: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
 
@@ -135,11 +131,9 @@ class OpenPacksActivity : AppCompatActivity() {
             cardRef.get()
                 .addOnSuccessListener { document ->
                     val currentQuantity = document.getLong("quantity")?.toInt() ?: 0
-                    // Actualizar la cantidad
                     cardRef.set(mapOf("quantity" to currentQuantity + 1), SetOptions.merge())
                 }
                 .addOnFailureListener {
-                    // Si hay un error al obtener el documento, intentamos crearlo
                     cardRef.set(mapOf("quantity" to 1))
                 }
         }
