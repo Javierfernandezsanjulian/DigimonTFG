@@ -66,7 +66,7 @@ class OpenPacksActivity : AppCompatActivity() {
                     saveCardsToDigitalCollection(userId, newCards)
 
                     // Mostrar las cartas con el adaptador
-                    recyclerView.adapter = OpenPacksAdapter(packCards)
+                    recyclerView.adapter = OpenPacksAdapter(packCards,this)
                 } else {
                     Toast.makeText(this, "No hay cartas disponibles en BT1", Toast.LENGTH_SHORT).show()
                 }

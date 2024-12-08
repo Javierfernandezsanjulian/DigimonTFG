@@ -12,14 +12,13 @@ import com.bumptech.glide.Glide
 
 class CardsAdapter(
     private val cards: List<Card>,
-    private val userCards: MutableMap<String, Int> = mutableMapOf(),// Mapa con las cartas del usuario y su cantidad
+    private val userCards: MutableMap<String, Int> = mutableMapOf(), // Mapa con las cartas del usuario y su cantidad
     private val onCardAdd: (Card) -> Unit,
     private val onCardRemove: (Card) -> Unit
 ) : RecyclerView.Adapter<CardsAdapter.CardViewHolder>() {
 
     class CardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val cardImage: ImageView = view.findViewById(R.id.cardImage)
-        val cardName: TextView = view.findViewById(R.id.cardName)
         val addButton: Button = view.findViewById(R.id.addCardButton)
         val removeButton: Button = view.findViewById(R.id.removeCardButton)
         val quantityText: TextView = view.findViewById(R.id.cardQuantityText)
@@ -35,8 +34,7 @@ class CardsAdapter(
         val card = cards[position]
         val quantity = userCards[card.card_id] ?: 0 // Obtener la cantidad de la carta en la colección del usuario
 
-        // Mostrar el nombre y la cantidad de la carta
-        holder.cardName.text = card.name
+        // Mostrar la cantidad de la carta
         holder.quantityText.text = "x$quantity"
 
         // Cargar la imagen de la carta
@@ -44,12 +42,6 @@ class CardsAdapter(
         Glide.with(holder.cardImage.context)
             .load(imagePath)
             .into(holder.cardImage)
-        holder.cardImage.setOnClickListener {
-            val intent = Intent(holder.cardImage.context, CardDetailActivity::class.java)
-            intent.putExtra("currentIndex", position)
-            intent.putExtra("cards", ArrayList(cards))
-            holder.cardImage.context.startActivity(intent)
-        }
 
         // Ajustar opacidad según si la carta está en la colección del usuario
         holder.cardImage.alpha = if (quantity > 0) 1.0f else 0.5f
@@ -79,6 +71,15 @@ class CardsAdapter(
                     holder.cardImage.alpha = 0.5f
                 }
             }
+        }
+
+        // Configurar click para abrir CardDetailActivity
+        holder.itemView.setOnClickListener {
+            val context = holder.itemView.context
+            val intent = Intent(context, CardDetailActivity::class.java)
+            intent.putExtra("cards", ArrayList(cards)) // Pasar lista de cartas como ArrayList
+            intent.putExtra("currentIndex", position) // Pasar índice actual
+            context.startActivity(intent)
         }
     }
 

@@ -28,16 +28,19 @@ class CardsActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.cardsRecyclerView)
         recyclerView.layoutManager = GridLayoutManager(this, 3) // 3 columnas de cartas
 
+        // Configurar BottomNavigationView
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)
+        bottomNavigationView.setOnItemSelectedListener { navigateTo(it.itemId) }
+
         // Obtener el nombre de la edición desde el intent
         val editionName = intent.getStringExtra("editionName") ?: "Edición desconocida"
 
         // Cargar cartas desde Firestore
         fetchCardsFromFirestore(editionName)
-
     }
 
     private fun fetchCardsFromFirestore(editionName: String) {
-        var editionNameSplitted = editionName.split("-")[0].replace(" ", "")
+        val editionNameSplitted = editionName.split("-")[0].replace(" ", "")
         val cardList = mutableListOf<Card>()
         val userId = FirebaseAuth.getInstance().currentUser?.uid
 
@@ -81,8 +84,8 @@ class CardsActivity : AppCompatActivity() {
         val adapter = CardsAdapter(
             cardList,
             userCards,
-            onCardAdd = { card:Card -> addCardToUserCollection(card) },
-            onCardRemove = { card:Card -> removeCardFromUserCollection(card) }
+            onCardAdd = { card: Card -> addCardToUserCollection(card) },
+            onCardRemove = { card: Card -> removeCardFromUserCollection(card) }
         )
         recyclerView.adapter = adapter
     }
@@ -128,5 +131,30 @@ class CardsActivity : AppCompatActivity() {
                         }
                 }
             }
+    }
+
+    private fun navigateTo(itemId: Int): Boolean {
+        when (itemId) {
+            R.id.bottom_home -> {
+                startActivity(Intent(this, DashboardActivity::class.java))
+                finish()
+                return true
+            }
+            R.id.bottom_collection -> {
+                startActivity(Intent(this, CollectionActivity::class.java))
+                finish()
+                return true
+            }
+            R.id.bottom_deck -> {
+                startActivity(Intent(this, DeckBuilderActivity::class.java))
+                finish()
+                return true
+            }
+            R.id.bottom_profile -> {
+                startActivity(Intent(this, SettingsActivity::class.java))
+                return true
+            }
+        }
+        return false
     }
 }

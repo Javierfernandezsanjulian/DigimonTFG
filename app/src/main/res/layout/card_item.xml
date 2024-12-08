@@ -3,36 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
-    android:background="@android:color/white"
-    android:layout_margin="8dp"
-    android:elevation="4dp">
+    android:padding="8dp">
 
     <!-- Imagen de la carta -->
     <ImageView
         android:id="@+id/cardImage"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:scaleType="centerCrop"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
         android:contentDescription="@string/card_image" />
 
-    <ImageView
-        android:id="@+id/cardImageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitCenter"
-        android:contentDescription="Carta volteada" />
-
-    <!-- Nombre de la carta -->
-    <TextView
-        android:id="@+id/cardName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Card Name"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:paddingTop="8dp" />
 
     <!-- Cantidad de cartas -->
     <TextView
@@ -56,7 +37,7 @@
             android:id="@+id/removeCardButton"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:backgroundTint="@android:color/holo_red_light"
+            android:backgroundTint="@android:color/holo_blue_light"
             android:text="-"
             android:textSize="18sp"
             android:textColor="@android:color/white"
@@ -67,7 +48,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="16dp"
-            android:backgroundTint="@android:color/holo_green_light"
+            android:backgroundTint="@android:color/holo_blue_dark"
             android:text="+"
             android:textSize="18sp"
             android:textColor="@android:color/white"
