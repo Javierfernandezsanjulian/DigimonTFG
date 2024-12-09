@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 
 class CardsAdapter(
     private val cards: List<Card>,
-    private val userCards: MutableMap<String, Int> = mutableMapOf(),// Mapa con las cartas del usuario y su cantidad
+    private val userCards: MutableMap<String, Int> = mutableMapOf(), // Mapa con las cartas del usuario y su cantidad
     private val onCardAdd: (Card) -> Unit,
     private val onCardRemove: (Card) -> Unit,
     private val onItemClicked: (Int, List<Card>) -> Unit

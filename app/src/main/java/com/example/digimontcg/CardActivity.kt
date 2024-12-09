@@ -22,6 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class CardsActivity : AppCompatActivity() {
 
+    // Contiene el valor del indice del RecyclerView de la última carta vista
     companion object {
         var position: Int = -1
     }
@@ -208,7 +209,8 @@ class CardsActivity : AppCompatActivity() {
     }
 
     private fun fetchCardsFromFirestore(editionName: String) {
-        var editionNameSplitted = editionName.split("-")[0].replace(" ", "")
+        val editionNameSplitted = editionName.split("-")[0].replace(" ", "")
+        val cardList = mutableListOf<Card>()
         val userId = FirebaseAuth.getInstance().currentUser?.uid
 
         if (userId == null) {

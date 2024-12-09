@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
+        android:layout_centerHorizontal="true"
         android:text="@string/dashboard_title"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -20,23 +21,37 @@
         android:id="@+id/packImage"
         android:layout_width="200dp"
         android:layout_height="500dp"
+        android:layout_below="@id/dashboardTitle"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="16dp"
         android:src="@drawable/bt1_image"
         android:contentDescription="Sobre de cartas"
         android:clickable="true"
         android:focusable="true" />
 
-    <!-- Contenedor para las cartas -->
-    <LinearLayout
-        android:id="@+id/cardsContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <!-- Barra de progreso debajo del sobre -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/packImage"
-        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:visibility="gone" />
+
+    <!-- Texto del temporizador debajo de la barra de progreso -->
+    <TextView
+        android:id="@+id/timerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/progressBar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:text="00:00:00"
+        android:textSize="16sp"
         android:gravity="center"
-        android:visibility="gone"
-        android:paddingTop="20dp" />
+        android:visibility="gone" />
 
     <!-- Barra de navegación inferior -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -46,7 +61,6 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/bottom_background"
         android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
         android:elevation="2dp"
         app:menu="@menu/bottom_menu"
         app:itemIconSize="30dp"
