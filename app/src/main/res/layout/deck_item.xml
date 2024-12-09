@@ -3,16 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
     android:gravity="center"
-    android:background="@drawable/round_button">
+    android:background="@drawable/round_button"
+    android:layout_margin="2dp">
 
     <!-- Imagen de la edición -->
     <ImageView
         android:id="@+id/deckImage"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop" />
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:contentDescription="@string/card_image" />
 
     <!-- Nombre de la edición -->
     <TextView
@@ -24,6 +26,7 @@
         android:layout_marginHorizontal="30dp"
         android:gravity="center_horizontal"
         android:elevation="3dp"
-        android:paddingTop="8dp" />
+        android:paddingTop="8dp"
+        android:paddingBottom="4dp"/>
 
 </LinearLayout>

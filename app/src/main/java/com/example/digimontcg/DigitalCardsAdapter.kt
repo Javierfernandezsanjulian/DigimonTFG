@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 class DigitalCardsAdapter(
     private val cards: List<Card>,
     private val userCards: MutableMap<String, Int> = mutableMapOf(),// Mapa con las cartas del usuario y su cantidad
+    private val onItemClicked: (Int, List<Card>) -> Unit
 ) : RecyclerView.Adapter<DigitalCardsAdapter.DigitalCardViewHolder>() {
 
     class DigitalCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -45,10 +46,7 @@ class DigitalCardsAdapter(
             .load(imagePath)
             .into(holder.cardImage)
         holder.cardImage.setOnClickListener {
-            val intent = Intent(holder.cardImage.context, CardDetailActivity::class.java)
-            intent.putExtra("currentIndex", position)
-            intent.putExtra("cards", ArrayList(cards))
-            holder.cardImage.context.startActivity(intent)
+            onItemClicked(position, cards)
         }
 
         // Ajustar opacidad según si la carta está en la colección del usuario

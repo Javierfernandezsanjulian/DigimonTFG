@@ -84,6 +84,7 @@ class CardDetailActivity : AppCompatActivity() {
         }
 
         closeButton.setOnClickListener {
+            CardsActivity.position = currentCardIndex
             finish() // Cierra la actividad
         }
 

@@ -1,13 +1,21 @@
 package com.example.digimontcg
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.ScrollView
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.digimontcg.CardsActivity.Companion.position
 import com.google.android.gms.tasks.Tasks
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -21,8 +29,15 @@ class DigitalCardsActivity : AppCompatActivity() {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var filterSearchView: SearchView
+    private lateinit var filterButton: ImageButton
     private lateinit var editionTextView: TextView
+    private lateinit var buttonApply: Button
+    private lateinit var buttonReset: Button
+    private lateinit var spinnerCardType: Spinner
+    private lateinit var spinnerColor: Spinner
+    private lateinit var filterMenu: ScrollView
     private val cardList = mutableListOf<Card>()
+    private var filter: Filter = Filter("", "")
     private val userCards = mutableMapOf<String, Int>() // Almacena las cartas del usuario
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,12 +66,99 @@ class DigitalCardsActivity : AppCompatActivity() {
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
         filterSearchView = findViewById(R.id.filterSearchView)
         editionTextView = findViewById(R.id.editionTitle)
+        filterButton = findViewById(R.id.filterButton)
+        buttonApply = findViewById(R.id.buttonApply)
+        buttonReset = findViewById(R.id.buttonReset)
+        spinnerCardType = findViewById(R.id.spinnerCardType)
+        spinnerColor = findViewById(R.id.spinnerColor)
+        filterMenu = findViewById(R.id.filterMenu)
         editionTextView.text = editionName
     }
 
     private fun initListeners() {
         bottomNavigationView.setSelectedItemId(R.id.bottom_collection)
         bottomNavigationView.setOnItemSelectedListener { navigateTo(it.itemId) }
+
+        filterSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                hideKeyboard()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterCards(newText)
+                return true
+            }
+        })
+
+        buttonApply.setOnClickListener {
+            applyFilters()
+        }
+
+        buttonReset.setOnClickListener {
+            resetFilters()
+        }
+
+        filterButton.setOnClickListener {
+            if(filterMenu.visibility == View.VISIBLE)
+                filterMenu.visibility = View.GONE
+            else
+                filterMenu.visibility = View.VISIBLE
+        }
+    }
+
+    private fun resetFilters() {
+        spinnerCardType.setSelection(0)
+        filter.type = ""
+        spinnerColor.setSelection(0)
+        filter.color = ""
+
+        filterCards(filterSearchView.query.toString())
+    }
+
+    private fun applyFilters() {
+        filter.type = spinnerCardType.selectedItem.toString()
+        filter.color = spinnerColor.selectedItem.toString()
+        if(filter.type == "No Type Filter")
+            filter.type = ""
+        if(filter.color == "No Color Filter")
+            filter.color = ""
+
+        filterCards(filterSearchView.query.toString())
+        filterMenu.visibility = View.GONE
+    }
+
+    private fun hideKeyboard() {
+        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val view = currentFocus ?: View(this) // En caso de que no haya un foco actual, usa una vista genérica
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+        filterSearchView.clearFocus()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        hideKeyboard()
+    }
+
+    private fun filterCards(query: String?) {
+        var cards = mutableListOf<Card>()
+
+        if(query!!.isEmpty()) {
+            cardList.forEach { card ->
+                if((card.color1.equals(filter.color) || card.color2.equals(filter.color) || filter.color.equals("")) && (card.type.equals(filter.type) || filter.type.equals("")))
+                    cards.add(card)
+            }
+        }else{
+            var queryy = query.lowercase()
+            cardList.forEach { card ->
+                if(card.card_id.lowercase().contains(queryy) || card.name.lowercase().contains(queryy))
+                    if((card.color1.equals(filter.color) || card.color2.equals(filter.color) || filter.color.equals("")) && (card.type.equals(filter.type) || filter.type.equals("")))
+                        cards.add(card)
+            }
+        }
+
+        setupRecyclerView(cards)
+
     }
 
     private fun navigateTo(itemId: Int): Boolean {
@@ -138,6 +240,27 @@ class DigitalCardsActivity : AppCompatActivity() {
             }
     }
 
+    private fun onItemClicked(currentPosition: Int, cards: List<Card>) {
+        val intent = Intent(this, CardDetailActivity::class.java)
+        intent.putExtra("currentIndex", currentPosition)
+        intent.putExtra("cards", ArrayList(cards))
+        startActivityForResult(intent, 5)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Toast.makeText(this, "" + requestCode, Toast.LENGTH_SHORT).show()
+
+        if (requestCode == 5) {
+            if (position != -1) {
+                println("position on CardsActivity: " + position)
+                recyclerView.smoothScrollToPosition(position) // Posicionar en el último item visto
+            }
+
+            position = -1
+        }
+    }
+
     private fun fetchCardsFromFirestore(editionName: String) {
         var editionNameSplitted = editionName.split("-")[0].replace(" ", "")
         val userId = FirebaseAuth.getInstance().currentUser?.uid
@@ -182,6 +305,7 @@ class DigitalCardsActivity : AppCompatActivity() {
         val adapter = DigitalCardsAdapter(
             cardList,
             userCards,
+            onItemClicked = { currentIndex:Int, cards:List<Card> -> onItemClicked(currentIndex, cards)}
         )
         recyclerView.adapter = adapter
     }

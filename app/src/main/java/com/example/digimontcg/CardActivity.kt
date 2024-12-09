@@ -210,7 +210,6 @@ class CardsActivity : AppCompatActivity() {
 
     private fun fetchCardsFromFirestore(editionName: String) {
         val editionNameSplitted = editionName.split("-")[0].replace(" ", "")
-        val cardList = mutableListOf<Card>()
         val userId = FirebaseAuth.getInstance().currentUser?.uid
 
         if (userId == null) {
