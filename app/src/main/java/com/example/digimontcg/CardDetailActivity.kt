@@ -1,13 +1,17 @@
 package com.example.digimontcg
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.github.chrisbanes.photoview.PhotoView
+import kotlin.properties.Delegates
+
 
 class CardDetailActivity : AppCompatActivity() {
 
@@ -50,6 +54,7 @@ class CardDetailActivity : AppCompatActivity() {
         // Obtener datos del intent
         cards = intent.getParcelableArrayListExtra("cards") ?: emptyList()
         currentCardIndex = intent.getIntExtra("currentIndex", 0)
+        println(currentCardIndex)
 
         // Mostrar la primera carta
         if (cards.isNotEmpty()) {
@@ -67,6 +72,7 @@ class CardDetailActivity : AppCompatActivity() {
                 currentCardIndex--
                 showCard(currentCardIndex)
             }
+            updateButtons()
         }
 
         nextButton.setOnClickListener {
@@ -74,11 +80,39 @@ class CardDetailActivity : AppCompatActivity() {
                 currentCardIndex++
                 showCard(currentCardIndex)
             }
+            updateButtons()
         }
 
         closeButton.setOnClickListener {
             finish() // Cierra la actividad
         }
+
+        cardImage.setOnScaleChangeListener { scaleFactor, focusX, focusY ->
+            if(scaleFactor < 0.92){
+                CardsActivity.position = currentCardIndex
+                finish()
+            }
+        }
+        updateButtons()
+    }
+
+    private fun updateButtons() {
+        if(currentCardIndex <= 0)
+            prevButton.visibility = View.INVISIBLE
+        else
+            prevButton.visibility = View.VISIBLE
+
+
+        if(currentCardIndex >= cards.size - 1)
+            nextButton.visibility = View.INVISIBLE
+        else
+            nextButton.visibility = View.VISIBLE
+    }
+
+    override fun onDestroy() {
+        CardsActivity.position = currentCardIndex
+        println("current: " + CardsActivity.position)
+        super.onDestroy()
     }
 
     private fun showCard(index: Int) {

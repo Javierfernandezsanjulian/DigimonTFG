@@ -14,7 +14,8 @@ class CardsAdapter(
     private val cards: List<Card>,
     private val userCards: MutableMap<String, Int> = mutableMapOf(),// Mapa con las cartas del usuario y su cantidad
     private val onCardAdd: (Card) -> Unit,
-    private val onCardRemove: (Card) -> Unit
+    private val onCardRemove: (Card) -> Unit,
+    private val onItemClicked: (Int, List<Card>) -> Unit
 ) : RecyclerView.Adapter<CardsAdapter.CardViewHolder>() {
 
     class CardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -36,8 +37,12 @@ class CardsAdapter(
         val quantity = userCards[card.card_id] ?: 0 // Obtener la cantidad de la carta en la colección del usuario
 
         // Mostrar el nombre y la cantidad de la carta
-        holder.cardName.text = card.name
-        holder.quantityText.text = "x$quantity"
+        holder.cardName.text = card.card_id
+        if (quantity > 1) {
+            holder.quantityText.text = "x$quantity"
+            holder.quantityText.visibility = View.VISIBLE
+        }else
+            holder.quantityText.visibility = View.GONE
 
         // Cargar la imagen de la carta
         val imagePath = "file:///android_asset/cards/${card.card_id}.jpg"
@@ -45,10 +50,7 @@ class CardsAdapter(
             .load(imagePath)
             .into(holder.cardImage)
         holder.cardImage.setOnClickListener {
-            val intent = Intent(holder.cardImage.context, CardDetailActivity::class.java)
-            intent.putExtra("currentIndex", position)
-            intent.putExtra("cards", ArrayList(cards))
-            holder.cardImage.context.startActivity(intent)
+            onItemClicked(position, cards)
         }
 
         // Ajustar opacidad según si la carta está en la colección del usuario

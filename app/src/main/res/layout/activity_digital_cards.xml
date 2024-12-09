@@ -47,64 +47,13 @@
             />
     </RelativeLayout>
 
-    <ScrollView
-        android:id="@+id/filterMenu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/constraintLayoutFilterHolder"
-        android:visibility="gone"
-        android:background="@drawable/round_button"
-        android:padding="16dp"
-        android:layout_marginTop="8dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <!-- Menús desplegables (Spinners) -->
-            <Spinner
-                android:id="@+id/spinnerCardType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:prompt="@string/spinner_card_type"/>
-
-            <Spinner
-                android:id="@+id/spinnerColor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:prompt="@string/spinner_card_color"/>
-
-            <!-- Botón Reset -->
-            <Button
-                android:id="@+id/buttonReset"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Reset"
-                android:background="@drawable/round_button_blue"
-                android:layout_marginTop="8dp"/>
-
-            <!-- Botón Aplicar -->
-            <Button
-                android:id="@+id/buttonApply"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Apply"
-                android:background="@drawable/round_button_blue"
-                android:layout_marginTop="8dp"/>
-
-        </LinearLayout>
-    </ScrollView>
-
     <!-- RecyclerView para mostrar las cartas -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cardsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:layout_below="@id/filterMenu"
+        android:layout_below="@id/constraintLayoutFilterHolder"
         android:layout_above="@id/bottomNavigationView"
         android:layout_marginBottom="20dp"/>
 

@@ -39,16 +39,19 @@ class SettingsActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.bottom_home -> {
                     startActivity(Intent(applicationContext, DashboardActivity::class.java))
+                    overridePendingTransition(R.anim.to_right, R.anim.from_left)
                     finish()
                     return@setOnItemSelectedListener true
                 }
                 R.id.bottom_collection -> {
                     startActivity(Intent(applicationContext, CollectionActivity::class.java))
+                    overridePendingTransition(R.anim.to_right, R.anim.from_left)
                     finish()
                     return@setOnItemSelectedListener true
                 }
                 R.id.bottom_deck -> {
                     startActivity(Intent(applicationContext, DeckCollectionActivity::class.java))
+                    overridePendingTransition(R.anim.to_right, R.anim.from_left)
                     finish()
                     return@setOnItemSelectedListener true
                 }

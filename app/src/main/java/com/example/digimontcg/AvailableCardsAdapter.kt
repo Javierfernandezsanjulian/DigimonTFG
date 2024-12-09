@@ -44,8 +44,8 @@ class AvailableCardsAdapter(
 
         holder.cardImage.setOnLongClickListener {
             val intent = Intent(holder.cardImage.context, CardDetailActivity::class.java)
-            intent.putExtra("currentIndex", position)
-            intent.putExtra("cards", ArrayList(cards))
+            intent.putExtra("currentIndex", 0)
+            intent.putExtra("cards", ArrayList(cards.subList(position, position + 1)))
             holder.cardImage.context.startActivity(intent)
             true
         }

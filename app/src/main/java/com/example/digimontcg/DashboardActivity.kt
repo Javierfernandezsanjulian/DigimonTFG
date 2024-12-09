@@ -100,16 +100,19 @@ class DashboardActivity : AppCompatActivity() {
             R.id.bottom_home -> return true
             R.id.bottom_collection -> {
                 startActivity(Intent(this, CollectionActivity::class.java))
+                overridePendingTransition(R.anim.to_left, R.anim.from_right)
                 finish()
                 return true
             }
             R.id.bottom_deck -> {
                 startActivity(Intent(this, DeckCollectionActivity::class.java))
+                overridePendingTransition(R.anim.to_left, R.anim.from_right)
                 finish()
                 return true
             }
             R.id.bottom_profile -> {
                 startActivity(Intent(this, SettingsActivity::class.java))
+                overridePendingTransition(R.anim.to_left, R.anim.from_right)
                 finish()
                 return true
             }

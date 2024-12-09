@@ -53,10 +53,10 @@ class CollectionActivity : AppCompatActivity() {
         // Configurar el listener para el botón de cambio de colección
         collectionSwitchButton.setOnClickListener {
             if (isDigital) {
-                collectionSwitchButton.text = "Cambiar a Digital"
+                collectionSwitchButton.text = "Switch to Digital"
                 loadPhysicalCollection()
             } else {
-                collectionSwitchButton.text = "Cambiar a Física"
+                collectionSwitchButton.text = "Switch to Physical"
                 loadDigitalCollection()
             }
             isDigital = !isDigital
@@ -67,17 +67,21 @@ class CollectionActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.bottom_home -> {
                     startActivity(Intent(applicationContext, DashboardActivity::class.java))
-                    finish()
+                    overridePendingTransition(R.anim.to_right, R.anim.from_left)
+                    finishAfterTransition()
                     return@setOnItemSelectedListener true
                 }
                 R.id.bottom_collection -> return@setOnItemSelectedListener true
                 R.id.bottom_deck -> {
                     startActivity(Intent(applicationContext, DeckCollectionActivity::class.java))
-                    finish()
+                    overridePendingTransition(R.anim.to_left, R.anim.from_right)
+                    finishAfterTransition()
                     return@setOnItemSelectedListener true
                 }
                 R.id.bottom_profile -> {
                     startActivity(Intent(applicationContext, SettingsActivity::class.java))
+                    overridePendingTransition(R.anim.to_left, R.anim.from_right)
+                    finishAfterTransition()
                     return@setOnItemSelectedListener true
                 }
             }
@@ -86,56 +90,14 @@ class CollectionActivity : AppCompatActivity() {
     }
 
     private fun loadDigitalCollection() {
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
-        if (userId == null) {
-            Toast.makeText(this, "Error: Usuario no autenticado", Toast.LENGTH_SHORT).show()
-            return
+        // Obtener lista de ediciones
+        val editions = getEditions()
+        recyclerView.adapter = EditionAdapter(editions) { edition ->
+            // Al hacer clic en una edición, abre la actividad CardsActivity
+            val intent = Intent(this, DigitalCardsActivity::class.java)
+            intent.putExtra("editionName", edition.name)
+            startActivity(intent)
         }
-
-        val digitalCollectionRef = firestore
-            .collection("users")
-            .document(userId)
-            .collection("digital")
-
-        digitalCollectionRef.get()
-            .addOnSuccessListener { snapshot ->
-                val cardIds = snapshot.documents.map { it.id to (it.getLong("quantity")?.toInt() ?: 0) }
-                if (cardIds.isEmpty()) {
-                    Toast.makeText(this, "No tienes cartas en tu colección digital", Toast.LENGTH_SHORT).show()
-                    recyclerView.adapter = null
-                    return@addOnSuccessListener
-                }
-
-                val cardIdChunks = cardIds.map { it.first }.chunked(10)
-                val tasks = cardIdChunks.map { chunk ->
-                    firestore.collection("card")
-                        .whereIn("card_id", chunk)
-                        .get()
-                }
-
-                // Ejecutar todas las consultas y combinar resultados
-                Tasks.whenAllSuccess<QuerySnapshot>(tasks)
-                    .addOnSuccessListener { results ->
-                        val cards = mutableListOf<Card>()
-                        results.forEach { querySnapshot ->
-                            val chunkCards = querySnapshot.toObjects<Card>()
-                            chunkCards.forEach { card ->
-                                card.quantity = cardIds.find { it.first == card.card_id }?.second ?: 0
-                            }
-                            cards.addAll(chunkCards)
-                        }
-
-                        // Configurar el adaptador para la vista digital
-                        recyclerView.adapter = SimpleCardsAdapter(cards, showQuantity = true)
-
-                    }
-                    .addOnFailureListener { e ->
-                        Toast.makeText(this, "Error al cargar cartas digitales: ${e.message}", Toast.LENGTH_SHORT).show()
-                    }
-            }
-            .addOnFailureListener { e ->
-                Toast.makeText(this, "Error al cargar colección digital: ${e.message}", Toast.LENGTH_SHORT).show()
-            }
     }
 
     private fun loadPhysicalCollection() {
@@ -152,25 +114,25 @@ class CollectionActivity : AppCompatActivity() {
     // Función para obtener la lista de ediciones
     private fun getEditions(): List<Edition> {
         return listOf(
-            Edition("BT1 - New Evolution", 115, "bt01_image"),
-            Edition("BT2 - Ultimate Power", 112, "bt02_image"),
-            Edition("BT3 - Union Impact", 112, "bt03_image"),
-            Edition("BT4 - Great Legend", 115, "bt04_image"),
-            Edition("BT5 - Battle of Omni", 112, "bt05_image"),
-            Edition("BT6 - Double Diamond", 112, "bt06_image"),
-            Edition("BT7 - Next Adventure", 112, "bt07_image"),
-            Edition("BT8 - New Awakening", 112, "bt08_image"),
-            Edition("BT9 - X Record", 112, "bt09_image"),
-            Edition("BT10 - Xros Encounter", 112, "bt10_image"),
-            Edition("BT11 - Dimensional Phase", 112, "bt11_image"),
-            Edition("BT12 - Across Time", 112, "bt12_image"),
-            Edition("BT13 - Versus Royal Knights", 112, "bt13_image"),
-            Edition("BT14 - Blast Ace", 102, "bt14_image"),
-            Edition("BT15 - Exceed Apocalypse", 102, "bt15_image"),
-            Edition("BT16 - Beginning Observer", 102, "bt16_image"),
-            Edition("BT17 - Secret Crisis", 102, "bt17_image"),
-            Edition("BT18 - Elemental Successor", 102, "bt18_image"),
-            Edition("BT19 - Xros Evolution", 102, "bt19_image"),
+            Edition(getResources().getString(R.string.edition_bt1), 115, "bt01_image"),
+            Edition(getResources().getString(R.string.edition_bt2), 112, "bt02_image"),
+            Edition(getResources().getString(R.string.edition_bt3), 112, "bt03_image"),
+            Edition(getResources().getString(R.string.edition_bt4), 115, "bt04_image"),
+            Edition(getResources().getString(R.string.edition_bt5), 112, "bt05_image"),
+            Edition(getResources().getString(R.string.edition_bt6), 112, "bt06_image"),
+            Edition(getResources().getString(R.string.edition_bt7), 112, "bt07_image"),
+            Edition(getResources().getString(R.string.edition_bt8), 112, "bt08_image"),
+            Edition(getResources().getString(R.string.edition_bt9), 112, "bt09_image"),
+            Edition(getResources().getString(R.string.edition_bt10), 112, "bt10_image"),
+            Edition(getResources().getString(R.string.edition_bt11), 112, "bt11_image"),
+            Edition(getResources().getString(R.string.edition_bt12), 112, "bt12_image"),
+            Edition(getResources().getString(R.string.edition_bt13), 112, "bt13_image"),
+            Edition(getResources().getString(R.string.edition_bt14), 102, "bt14_image"),
+            Edition(getResources().getString(R.string.edition_bt15), 102, "bt15_image"),
+            Edition(getResources().getString(R.string.edition_bt16), 102, "bt16_image"),
+            Edition(getResources().getString(R.string.edition_bt17), 102, "bt17_image"),
+            Edition(getResources().getString(R.string.edition_bt18), 102, "bt18_image"),
+            Edition(getResources().getString(R.string.edition_bt19), 102, "bt19_image"),
         )
     }
 }

@@ -18,6 +18,26 @@
     <string name="spinner_card_type" translatable="false">Card Type</string>
     <string name="spinner_card_color" translatable="false">Card Color</string>
 
+    <string name="edition_bt1" translatable="false">BT1 - New Evolution</string>
+    <string name="edition_bt2" translatable="false">BT2 - Ultimate Power</string>
+    <string name="edition_bt3" translatable="false">BT3 - Union Impact</string>
+    <string name="edition_bt4" translatable="false">BT4 - Great Legend</string>
+    <string name="edition_bt5" translatable="false">BT5 - Battle of Omni</string>
+    <string name="edition_bt6" translatable="false">BT6 - Double Diamond</string>
+    <string name="edition_bt7" translatable="false">BT7 - Next Adventure</string>
+    <string name="edition_bt8" translatable="false">BT8 - New Awakening</string>
+    <string name="edition_bt9" translatable="false">BT9 - X Record</string>
+    <string name="edition_bt10" translatable="false">BT10 - Xros Encounter</string>
+    <string name="edition_bt11" translatable="false">BT11 - Dimensional Phase</string>
+    <string name="edition_bt12" translatable="false">BT12 - Across Time</string>
+    <string name="edition_bt13" translatable="false">BT13 - Versus Royal Knights</string>
+    <string name="edition_bt14" translatable="false">BT14 - Blast Ace</string>
+    <string name="edition_bt15" translatable="false">BT15 - Exceed Apocalypse</string>
+    <string name="edition_bt16" translatable="false">BT16 - Beginning Observer</string>
+    <string name="edition_bt17" translatable="false">BT17 - Secret Crisis</string>
+    <string name="edition_bt18" translatable="false">BT18 - Elemental Successor</string>
+    <string name="edition_bt19" translatable="false">BT19 - Xros Evolution</string>
+
     <string-array name="card_types">
         <item>No Type Filter</item>
         <item>Digimon</item>

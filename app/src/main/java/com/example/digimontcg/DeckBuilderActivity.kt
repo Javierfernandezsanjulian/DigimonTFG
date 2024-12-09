@@ -18,6 +18,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -242,9 +243,9 @@ class DeckBuilderActivity : AppCompatActivity() {
                     cards.add(card)
             }
         }else{
-            var queryy = query!!.lowercase()
+            var queryy = query.lowercase()
             availableCards.forEach { card ->
-                if(card.card_id.lowercase().contains(queryy!!) || card.name.lowercase().contains(queryy!!))
+                if(card.card_id.lowercase().contains(queryy) || card.name.lowercase().contains(queryy))
                     if((card.color1.equals(filter.color) || card.color2.equals(filter.color) || filter.color.equals("")) && (card.type.equals(filter.type) || filter.type.equals("")))
                         cards.add(card)
             }
@@ -257,6 +258,12 @@ class DeckBuilderActivity : AppCompatActivity() {
         val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         val view = currentFocus ?: View(this) // En caso de que no haya un foco actual, usa una vista genérica
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+        filterSearchView.clearFocus()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        hideKeyboard()
     }
 
     private fun loadAvailableCards() {

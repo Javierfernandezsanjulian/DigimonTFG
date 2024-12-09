@@ -16,6 +16,9 @@
         android:theme="@style/Theme.DigimonTCG"
         tools:targetApi="34">
         <activity
+            android:name=".DigitalCardsActivity"
+            android:exported="false" />
+        <activity
             android:name=".DeckCollectionActivity"
             android:exported="false" />
         <activity
@@ -40,9 +43,6 @@
         <activity android:name=".CardsActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".OpenPacksActivity" />
-        <activity
-            android:name=".DigitalCollectionActivity"
-            android:exported="false" />
         <activity android:name=".CardDetailActivity" />
     </application>
 

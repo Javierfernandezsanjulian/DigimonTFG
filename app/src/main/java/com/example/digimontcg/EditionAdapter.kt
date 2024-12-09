@@ -28,7 +28,7 @@ class EditionAdapter(
     override fun onBindViewHolder(holder: EditionViewHolder, position: Int) {
         val edition = editions[position]
         holder.titleTextView.text = edition.name
-        holder.countTextView.text = "${edition.cardCount} cartas"
+        holder.countTextView.text = "${edition.cardCount} cards"
         Glide.with(holder.imageView.context)
             .load("file:///android_asset/editions/${edition.image}.png")
             .into(holder.imageView)

@@ -102,17 +102,24 @@
     </FrameLayout>
 
     <!-- Botón de cerrar -->
-    <ImageButton
-        android:id="@+id/closeButton"
+    <LinearLayout
+        android:id="@+id/prevCardButtonHolder"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_alignParentTop="true"
+        android:layout_margin="20dp"
+        android:orientation="horizontal"
         android:layout_alignParentEnd="true"
-        android:layout_margin="16dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="Cerrar detalles"
-        android:src="@drawable/ic_close"
-        app:tint="@android:color/white" />
+        android:layout_alignParentTop="true"
+        android:background="@drawable/round_button">
+
+        <ImageButton
+            android:id="@+id/closeButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Close Details"
+            android:src="@drawable/exit_button_logo" />
+    </LinearLayout>
 
     <!-- Botón previo -->
     <ImageButton
@@ -150,5 +157,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
+        android:background="@drawable/round_button"
+        android:paddingHorizontal="10dp"
         android:text="Show Details" />
 </RelativeLayout>
