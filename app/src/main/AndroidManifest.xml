@@ -25,7 +25,8 @@
             android:exported="false" />
         <activity
             android:name=".CollectionActivity"
-            android:exported="false" /> <!-- Declaración de MainActivity como actividad principal -->
+            android:exported="false" />
+        <!-- Declaración de MainActivity como actividad principal -->
         <activity
             android:name=".MainActivity"
             android:exported="true"

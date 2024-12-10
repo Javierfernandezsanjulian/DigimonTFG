@@ -19,13 +19,23 @@
       android:layout_marginBottom="16dp"
       android:layout_alignParentTop="true" />
 
+  <androidx.appcompat.widget.SwitchCompat
+      android:id="@+id/collectionToggleButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Digital "
+      android:layout_below="@id/collectionTitle"
+      android:layout_alignParentEnd="true"
+      android:background="@drawable/bottom_background"
+      android:paddingHorizontal="10dp"/>
+
   <!-- RecyclerView para mostrar las ediciones -->
   <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/collectionCardHolder"
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      android:layout_below="@id/collectionTitle"
-      android:layout_above="@id/collectionSwitchButton"
+      android:layout_below="@id/collectionToggleButton"
+      android:layout_above="@id/bottomNavigationView"
       android:layout_marginBottom="16dp"
       android:layout_marginTop="16dp" />
 
@@ -39,7 +49,8 @@
       android:layout_alignParentBottom="true"
       android:layout_marginBottom="90dp"
       android:background="@drawable/bottom_background"
-      android:paddingHorizontal="10dp"/>
+      android:paddingHorizontal="10dp"
+      android:visibility="invisible"/>
 
   <!-- Barra de navegación inferior -->
   <com.google.android.material.bottomnavigation.BottomNavigationView

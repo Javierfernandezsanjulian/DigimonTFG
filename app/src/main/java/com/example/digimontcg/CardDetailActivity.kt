@@ -62,8 +62,13 @@ class CardDetailActivity : AppCompatActivity() {
         }
 
         showDetailsButton.setOnClickListener {
-            detailsContainer.visibility =
-                if (detailsContainer.visibility == View.GONE) View.VISIBLE else View.GONE
+            if(detailsContainer.visibility == View.GONE){
+                detailsContainer.visibility = View.VISIBLE
+                showDetailsButton.text = "Hide Details"
+            }else{
+                detailsContainer.visibility = View.GONE
+                showDetailsButton.text = "Show Details"
+            }
         }
 
         // Configurar navegación

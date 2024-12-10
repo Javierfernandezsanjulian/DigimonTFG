@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -18,9 +19,12 @@ class CollectionActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var bottomNavigationView: BottomNavigationView
-    private lateinit var collectionSwitchButton: Button
-    private var isDigital: Boolean = false
+    private lateinit var collectionToggleButton: SwitchCompat
     private lateinit var firestore: FirebaseFirestore
+
+    companion object {
+        var isDigital = false
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,22 +47,30 @@ class CollectionActivity : AppCompatActivity() {
         recyclerView.layoutManager = GridLayoutManager(this, 2) // Mostrar 2 columnas de ediciones
 
         // Configurar el botón de cambio de colección
-        collectionSwitchButton = findViewById(R.id.collectionSwitchButton)
+        collectionToggleButton = findViewById(R.id.collectionToggleButton)
 
         // Cargar colección física inicialmente
-        loadPhysicalCollection()
+        loadCollection()
+    }
+
+    private fun loadCollection() {
+        if (isDigital){
+            loadDigitalCollection()
+            collectionToggleButton.isChecked = true
+        }else{
+            loadPhysicalCollection()
+            collectionToggleButton.isChecked = false
+        }
     }
 
     private fun initListeners() {
         // Configurar el listener para el botón de cambio de colección
-        collectionSwitchButton.setOnClickListener {
-            if (isDigital) {
-                collectionSwitchButton.text = "Switch to Digital"
-                loadPhysicalCollection()
-            } else {
-                collectionSwitchButton.text = "Switch to Physical"
+        collectionToggleButton.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked)
                 loadDigitalCollection()
-            }
+            else
+                loadPhysicalCollection()
+
             isDigital = !isDigital
         }
 
