@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ScrollView
@@ -73,6 +74,22 @@ class DigitalCardsActivity : AppCompatActivity() {
         spinnerColor = findViewById(R.id.spinnerColor)
         filterMenu = findViewById(R.id.filterMenu)
         editionTextView.text = editionName
+
+        val spinnerCardTypeAdapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.card_types,
+            android.R.layout.simple_spinner_item
+        )
+        spinnerCardTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerCardType.adapter = spinnerCardTypeAdapter
+
+        val spinnerColorAdapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.card_colors,
+            android.R.layout.simple_spinner_item
+        )
+        spinnerColorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerColor.adapter = spinnerColorAdapter
     }
 
     private fun initListeners() {
