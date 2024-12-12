@@ -31,7 +31,8 @@ class DashboardActivity : AppCompatActivity() {
 
     companion object {
         const val LAST_OPENED_TIMESTAMP_KEY = "last_opened_timestamp"
-        const val TIME_LIMIT_MS = 2 * 60 * 60 * 1000 // 2 horas en milisegundos
+        const val TIME_LIMIT_MS = 3 * 60 * 1000 // 3 minutos en milisegundos
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
