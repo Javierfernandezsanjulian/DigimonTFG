@@ -50,7 +50,7 @@ class DeckCollectionActivity : AppCompatActivity() {
 
         // Configurar texto
         collectionDeckText = findViewById(R.id.collectionDeckText)
-        collectionDeckText.visibility = View.GONE
+        collectionDeckText.visibility = View.INVISIBLE
 
         // Configurar el botón de cambio de colección
         deckAddButton = findViewById(R.id.deckAddButton)
@@ -117,7 +117,7 @@ class DeckCollectionActivity : AppCompatActivity() {
                     return@addOnSuccessListener
                 }
 
-                collectionDeckText.visibility = View.GONE
+                collectionDeckText.visibility = View.INVISIBLE
 
                 val decks = ArrayList<String>()
                 documents.documents.mapNotNull { document ->

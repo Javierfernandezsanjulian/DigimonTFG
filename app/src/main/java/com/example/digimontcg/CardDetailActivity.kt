@@ -59,6 +59,8 @@ class CardDetailActivity : AppCompatActivity() {
         // Mostrar la primera carta
         if (cards.isNotEmpty()) {
             showCard(currentCardIndex)
+        } else {
+            showCard(-1)
         }
 
         showDetailsButton.setOnClickListener {
@@ -122,12 +124,25 @@ class CardDetailActivity : AppCompatActivity() {
     }
 
     private fun showCard(index: Int) {
-        val card = cards[index]
+        var card: Card
+        if(index < 0) {
+            cards = ArrayList<Card>()
+            (cards as ArrayList<Card>).add(Card("BT1-001", "Blue", "None", "Título: Digimon TCG Collection Manager\n" +
+                    "Ciclo Formativo: Segundo de DAM\nAño Académico: Diciembre 2024\nCentro Educativo: IES Palomeras-Vallecas", "Víctor Alocén & Javier Fernández", "DAM", "SR", "Student", 1))
+            card = cards[0]
 
-        // Cargar la imagen
-        Glide.with(this)
-            .load("file:///android_asset/cards/${card.card_id}.jpg")
-            .into(cardImage)
+            // Cargar la imagen
+            Glide.with(this)
+                .load("file:///android_asset/about/about.png")
+                .into(cardImage)
+        }else {
+            card = cards[index]
+
+            // Cargar la imagen
+            Glide.with(this)
+                .load("file:///android_asset/cards/${card.card_id}.jpg")
+                .into(cardImage)
+        }
 
         // Actualizar detalles
         cardName.text = card.name

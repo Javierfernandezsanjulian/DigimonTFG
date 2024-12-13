@@ -28,8 +28,7 @@
         android:layout_below="@id/collectionDeckTitle"
         android:layout_above="@id/bottomNavigationView"
         android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp"
-        android:visibility="invisible"/>
+        android:layout_marginTop="16dp"/>
 
     <TextView
         android:id="@+id/collectionDeckText"

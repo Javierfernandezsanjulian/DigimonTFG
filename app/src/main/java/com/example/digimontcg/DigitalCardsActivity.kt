@@ -122,6 +122,10 @@ class DigitalCardsActivity : AppCompatActivity() {
             else
                 filterMenu.visibility = View.VISIBLE
         }
+
+        filterSearchView.setOnClickListener {
+            filterSearchView.isIconified = false
+        }
     }
 
     private fun resetFilters() {

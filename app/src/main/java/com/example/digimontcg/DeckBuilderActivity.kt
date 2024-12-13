@@ -179,6 +179,10 @@ class DeckBuilderActivity : AppCompatActivity() {
             clearDeck()
         }
 
+        filterSearchView.setOnClickListener {
+            filterSearchView.isIconified = false
+        }
+
         filterSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 hideKeyboard()

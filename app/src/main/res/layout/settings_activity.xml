@@ -26,6 +26,17 @@
         android:textColor="@android:color/white"
         android:layout_below="@id/settingsTitle"/>
 
+    <Button
+        android:id="@+id/aboutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="About"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/primaryColorDark"
+        android:textStyle="bold"
+        android:layout_below="@id/logoutButton"/>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"

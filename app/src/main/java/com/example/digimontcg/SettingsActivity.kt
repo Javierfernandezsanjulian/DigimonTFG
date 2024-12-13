@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 class SettingsActivity : AppCompatActivity() {
 
     private lateinit var logoutButton: Button
+    private lateinit var aboutButton: Button
     private lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +27,7 @@ class SettingsActivity : AppCompatActivity() {
     private fun initComponents() {
         // Inicializar el botón de logout
         logoutButton = findViewById(R.id.logoutButton)
+        aboutButton = findViewById(R.id.aboutButton)
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
     }
 
@@ -33,6 +35,10 @@ class SettingsActivity : AppCompatActivity() {
         // Configurar el listener del botón
         logoutButton.setOnClickListener {
             logout()
+        }
+
+        aboutButton.setOnClickListener {
+            about()
         }
 
         bottomNavigationView.setOnItemSelectedListener { item ->
@@ -71,5 +77,12 @@ class SettingsActivity : AppCompatActivity() {
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish() // Finaliza la actividad actual
+    }
+
+    private fun about() {
+        // Redirigir al usuario a la pantalla de inicio de sesión
+        val intent = Intent(this, CardDetailActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 }
