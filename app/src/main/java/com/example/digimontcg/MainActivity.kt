@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         val currentUser: FirebaseUser? = auth.currentUser
         if(currentUser!=null){
             // Navegar a DashboardActivity
-            Toast.makeText(this, "Hola de nuevo " + (currentUser.email?.split("@")?.get(0) ?: "UnknownUser") + "!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Welcome back " + (currentUser.email?.split("@")?.get(0) ?: "UnknownUser") + "!", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, DashboardActivity::class.java)
             startActivity(intent)
             finish()

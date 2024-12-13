@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="Card Id"
+        android:textColor="@color/primaryColorDark"
         android:textSize="14sp"
         android:textStyle="bold"
         android:paddingTop="4dp" />
@@ -31,6 +32,7 @@
         android:id="@+id/cardName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/primaryColorDark"
         android:layout_gravity="center_horizontal"
         android:text="Card Name"
         android:textSize="14sp"

@@ -15,6 +15,7 @@
         android:text="Deck Collection"
         android:textAlignment="center"
         android:textSize="24sp"
+        android:textColor="@color/primaryColorDark"
         android:textStyle="bold"
         android:layout_marginBottom="16dp"
         android:layout_alignParentTop="true" />
@@ -27,7 +28,20 @@
         android:layout_below="@id/collectionDeckTitle"
         android:layout_above="@id/bottomNavigationView"
         android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/collectionDeckText"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="You don't have any deck yet. Press the button below to create a new one."
+        android:gravity="center"
+        android:textColor="@color/primaryColorDark"
+        android:layout_below="@id/collectionDeckTitle"
+        android:layout_above="@id/bottomNavigationView"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"/>
 
     <LinearLayout
         android:id="@+id/layoutAddButton"

@@ -306,7 +306,7 @@ class DeckBuilderActivity : AppCompatActivity() {
 
         val constraintMessage = checkDeckConstraints(card, existingCard)
         if (constraintMessage != "OK"){
-            createDialog(constraintMessage)
+            createDialog(constraintMessage).show()
             return
         }
 
@@ -335,9 +335,10 @@ class DeckBuilderActivity : AppCompatActivity() {
                 eggCount += cardInDeck.quantity
         }
 
-        if (deckSize >= 50) return "You cannot have more than 50 cards in your deck."
-        if (card.quantity + 1 > 4) return "You cannot have more than 4 copies of ${card.name} in your deck."
-        if (eggCount > 5) return "You cannot have more than 5 Digi-Egg cards in your deck."
+        if (deckSize >= 50) {return "You cannot have more than 50 cards in your deck."}
+        if (card.quantity + 1 > 4) {return "You cannot have more than 4 copies of ${card.name} in your deck."}
+        if (eggCount > 5) {return "You cannot have more than 5 Digi-Egg cards in your deck."}
+
         return "OK"
     }
 

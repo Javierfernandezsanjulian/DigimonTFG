@@ -15,6 +15,7 @@
       android:text="Edition Collection"
       android:textAlignment="center"
       android:textSize="24sp"
+      android:textColor="@color/primaryColorDark"
       android:textStyle="bold"
       android:layout_marginBottom="16dp"
       android:layout_alignParentTop="true" />

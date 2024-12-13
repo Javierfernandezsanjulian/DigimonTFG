@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="x0"
+        android:textColor="@color/primaryColorDark"
         android:textSize="12sp"
         android:paddingTop="4dp" />
 

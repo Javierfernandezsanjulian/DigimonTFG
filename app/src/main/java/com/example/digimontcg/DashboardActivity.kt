@@ -14,8 +14,10 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.digimontcg.MainActivity.Companion.auth
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 
 class DashboardActivity : AppCompatActivity() {
@@ -24,6 +26,7 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var packImage: ImageView
     private lateinit var progressBar: ProgressBar
     private lateinit var timerTextView: TextView
+    private lateinit var dashboardTitle: TextView
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var firestore: FirebaseFirestore
 
@@ -47,6 +50,7 @@ class DashboardActivity : AppCompatActivity() {
         packImage = findViewById(R.id.packImage)
         progressBar = findViewById(R.id.progressBar)
         timerTextView = findViewById(R.id.timerTextView)
+        dashboardTitle = findViewById(R.id.dashboardTitle)
 
         // Configurar listeners
         packImage.setOnClickListener {
@@ -190,6 +194,9 @@ class DashboardActivity : AppCompatActivity() {
             Toast.makeText(this, "Error: Usuario no autenticado", Toast.LENGTH_SHORT).show()
             return
         }
+
+        val currentUser: FirebaseUser? = auth.currentUser
+        dashboardTitle.text = "Welcome " + (currentUser?.email?.split("@")?.get(0) ?: "UnknownUser") + "!"
 
         val digitalCollectionRef = firestore
             .collection("users")

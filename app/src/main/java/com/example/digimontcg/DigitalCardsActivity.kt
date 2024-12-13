@@ -266,7 +266,6 @@ class DigitalCardsActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Toast.makeText(this, "" + requestCode, Toast.LENGTH_SHORT).show()
 
         if (requestCode == 5) {
             if (position != -1) {

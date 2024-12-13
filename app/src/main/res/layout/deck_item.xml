@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:text="Deck Name"
         android:textStyle="bold"
+        android:textColor="@color/primaryColorDark"
         android:layout_marginHorizontal="30dp"
         android:gravity="center_horizontal"
         android:elevation="3dp"

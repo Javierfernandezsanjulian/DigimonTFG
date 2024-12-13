@@ -3,7 +3,9 @@ package com.example.digimontcg
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,6 +20,7 @@ class DeckCollectionActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var deckAddButton: ImageButton
+    private lateinit var collectionDeckText: TextView
     private lateinit var firestore: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +47,10 @@ class DeckCollectionActivity : AppCompatActivity() {
         // Configurar RecyclerView
         recyclerView = findViewById(R.id.collectionDeckHolder)
         recyclerView.layoutManager = GridLayoutManager(this, 2) // Mostrar 2 columnas de ediciones
+
+        // Configurar texto
+        collectionDeckText = findViewById(R.id.collectionDeckText)
+        collectionDeckText.visibility = View.GONE
 
         // Configurar el botón de cambio de colección
         deckAddButton = findViewById(R.id.deckAddButton)
@@ -106,9 +113,11 @@ class DeckCollectionActivity : AppCompatActivity() {
                     recyclerView.adapter = DeckCollectionAdapter(
                         ArrayList<String>()
                     )
-                    Toast.makeText(this, "Aún no tienes ningún mazo creado. Toca el botón para crear uno", Toast.LENGTH_SHORT).show()
+                    collectionDeckText.visibility = View.VISIBLE
                     return@addOnSuccessListener
                 }
+
+                collectionDeckText.visibility = View.GONE
 
                 val decks = ArrayList<String>()
                 documents.documents.mapNotNull { document ->

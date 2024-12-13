@@ -19,6 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Edition Name"
+        android:textColor="@color/primaryColorDark"
         android:textStyle="bold"
         android:gravity="center"
         android:paddingTop="8dp" />
@@ -29,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Card Count"
+        android:textColor="@color/primaryColorDark"
         android:gravity="center"
         android:paddingTop="4dp" />
 </LinearLayout>

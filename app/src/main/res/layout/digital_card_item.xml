@@ -27,6 +27,7 @@
         android:background="@drawable/bottom_background"
         android:paddingTop="4dp"
         android:paddingStart="4dp"
+        android:textColor="@color/primaryColorDark"
         android:paddingEnd="4dp"
         android:paddingBottom="4dp"/>
 
@@ -38,6 +39,7 @@
         android:layout_gravity="center_horizontal"
         android:text="Card Name"
         android:textSize="14sp"
+        android:textColor="@color/primaryColorDark"
         android:textStyle="bold"
         android:layout_below="@id/cardImage"
         android:textAlignment="center"

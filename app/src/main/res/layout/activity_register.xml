@@ -12,9 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/register_title"
-    android:textSize="24sp"
-    android:textStyle="bold"
-    android:layout_marginBottom="32dp" />
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/primaryColorDark"
+        android:layout_marginBottom="32dp" />
 
     <!-- Campo de Email -->
     <EditText
@@ -23,9 +24,9 @@
         android:layout_height="48dp"
         android:layout_marginBottom="16dp"
         android:hint="@string/email_hint"
-    android:inputType="textEmailAddress"
-    android:autofillHints="email"
-    android:maxWidth="300dp" />
+        android:inputType="textEmailAddress"
+        android:autofillHints="email"
+        android:maxWidth="300dp" />
 
     <!-- Campo de Contraseña -->
     <EditText
